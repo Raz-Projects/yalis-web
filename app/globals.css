@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-onyx:       #0B0B0B;
+    --color-onyx-mid:   #161616;
+    --color-onyx-light: #222222;
+    --color-steel:      #8DBDBD;
+    --color-steel-light:#AECECE;
+    --color-concrete:   #D6D3CE;
+    --color-offwhite:   #F2F1EE;
+
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html {
+    scroll-behavior: smooth;
+    font-size: 17px;
+  }
+  body {
+    font-family: var(--font-assistant), sans-serif;
+    background-color: var(--color-onyx);
+    color: var(--color-offwhite);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-cormorant), serif;
+  }
+}
+
+/* ─────────────────────────────────────────
+   GRAIN TEXTURE
+───────────────────────────────────────── */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   IMAGE HOVER ZOOM
+───────────────────────────────────────── */
+.img-zoom { overflow: hidden; }
+.img-zoom img,
+.img-zoom .next-image-wrapper {
+  transition: transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.img-zoom:hover img,
+.img-zoom:hover .next-image-wrapper {
+  transform: scale(1.05);
+}
+
+/* ─────────────────────────────────────────
+   STEEL DIVIDER
+───────────────────────────────────────── */
+.ys-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--color-steel);
+  opacity: 0.5;
+  margin: 0 auto;
+}
+.ys-divider-full {
+  width: 100%;
+  height: 1px;
+  background: var(--color-steel);
+  opacity: 0.15;
+}
+
+/* ─────────────────────────────────────────
+   BUTTON STYLES
+───────────────────────────────────────── */
+.btn-ys-solid {
+  display: inline-block;
+  padding: 14px 40px;
+  background: var(--color-steel);
+  color: var(--color-onyx);
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+.btn-ys-solid:hover { opacity: 0.85; }
+
+.btn-ys-outline {
+  display: inline-block;
+  padding: 14px 40px;
+  border: 1px solid var(--color-steel);
+  color: var(--color-steel);
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+.btn-ys-outline:hover {
+  background: var(--color-steel);
+  color: var(--color-onyx);
+}
+
+.btn-ys-ghost {
+  display: inline-block;
+  padding: 14px 40px;
+  border: 1px solid rgba(242, 241, 238, 0.3);
+  color: var(--color-offwhite);
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+.btn-ys-ghost:hover {
+  border-color: var(--color-steel);
+  color: var(--color-steel);
+}
+
+/* ─────────────────────────────────────────
+   LABEL / EYEBROW TEXT
+───────────────────────────────────────── */
+.label-ys {
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* ─────────────────────────────────────────
+   GOLD UNDERLINE HOVER
+───────────────────────────────────────── */
+.steel-underline {
+  position: relative;
+}
+.steel-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-steel);
+  transition: width 0.3s ease;
+}
+.steel-underline:hover::after { width: 100%; }
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes revealIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0);   }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+.animate-fade-up {
+  animation: revealUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+.animate-fade-in {
+  animation: revealIn 1s ease forwards;
+  opacity: 0;
+}
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.animate-scroll-bounce {
+  transform: translateX(-50%);
+  animation: scrollBounce 2.5s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────
+   PRODUCT CARD
+───────────────────────────────────────── */
+.product-card {
+  background: var(--color-onyx-mid);
+  border: 1px solid rgba(141, 189, 189, 0.12);
+  transition: border-color 0.4s ease, transform 0.4s ease;
+  cursor: pointer;
+}
+.product-card:hover {
+  border-color: rgba(141, 189, 189, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ─────────────────────────────────────────
+   STICKY CART
+───────────────────────────────────────── */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: min(420px, 100vw);
+  background: var(--color-onyx-mid);
+  border-right: 1px solid rgba(141,189,189,0.2);
+  z-index: 200;
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  transform: translateX(-100%);
+  overflow-y: auto;
+}
+.cart-panel.open { transform: translateX(0); }
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 199;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.cart-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ─────────────────────────────────────────
+   PROMO BAR
+───────────────────────────────────────── */
+.promo-bar {
+  background: var(--color-steel);
+  color: var(--color-onyx);
+  text-align: center;
+  padding: 10px 16px;
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────
+   COLLECTION BADGE
+───────────────────────────────────────── */
+.badge-collection {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid rgba(141,189,189,0.4);
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
