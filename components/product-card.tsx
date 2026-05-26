@@ -18,7 +18,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
   return (
     <div className="product-card group relative">
       <Link href={`/products/${product.slug}`} className="block">
-        <div className="relative aspect-square overflow-hidden rounded-xl bg-white/5">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-white/5">
           {product.images[0] ? (
             <Image
               src={product.images[0]}
