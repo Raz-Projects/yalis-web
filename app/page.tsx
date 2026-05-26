@@ -8,37 +8,6 @@ import { products } from "@/lib/products"
 
 const featured = products.slice(0, 6)
 
-// hero.jpeg = 493×1452 portrait, 4 equal panels.
-// object-position values to centre each panel when the image is clipped:
-// panel 1 (top 25%)    → 0%
-// panel 2 (25–50%)     → 33%
-// panel 3 (50–75%)     → 67%
-// panel 4 (bottom 25%) → 100%
-const PANEL = ["0%", "33%", "67%", "100%"] as const
-
-function HeroPanel({
-  panel,
-  className = "",
-}: {
-  panel: 0 | 1 | 2 | 3
-  className?: string
-}) {
-  return (
-    <div className={`relative overflow-hidden min-h-0 ${className}`}>
-      <Image
-        src="/hero.jpeg"
-        alt="YALIS"
-        fill
-        priority
-        quality={100}
-        className="object-cover"
-        style={{ objectPosition: `50% ${PANEL[panel]}` }}
-        sizes="(max-width: 768px) 100vw, 42vw"
-      />
-    </div>
-  )
-}
-
 export default function HomePage() {
   return (
     <>
@@ -46,75 +15,72 @@ export default function HomePage() {
       <FloatingWhatsApp />
 
       {/* ══════════════════════════════════════
-          HERO — portrait film strip + brand
+          HERO — full-screen brand board
           ══════════════════════════════════════ */}
-      <section className="bg-black min-h-screen">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background */}
+        <Image
+          src="/brand-board.jpeg"
+          alt="YALIS Studio"
+          fill
+          priority
+          quality={90}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/65" />
 
-        {/* dir="ltr" so image column always appears LEFT, brand RIGHT, regardless of RTL */}
-        <div className="min-h-screen flex flex-col md:flex-row" dir="ltr">
-
-          {/* ── PORTRAIT PANEL STRIP ── */}
-          <div className="flex flex-col gap-[2px] md:w-[42%] md:min-h-screen">
-            {/* Mobile: 3 selected panels at 4:3 ratio */}
-            <HeroPanel panel={0} className="md:hidden aspect-[4/3]" />
-            <HeroPanel panel={2} className="md:hidden aspect-[4/3]" />
-            <HeroPanel panel={3} className="md:hidden aspect-[4/3]" />
-            {/* Desktop: all 4 panels filling full height equally */}
-            <HeroPanel panel={0} className="hidden md:flex md:flex-1" />
-            <HeroPanel panel={1} className="hidden md:flex md:flex-1" />
-            <HeroPanel panel={2} className="hidden md:flex md:flex-1" />
-            <HeroPanel panel={3} className="hidden md:flex md:flex-1" />
+        {/* Brand content */}
+        <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center" dir="rtl">
+          {/* Logo */}
+          <div className="w-52 md:w-64 lg:w-72 relative" style={{ aspectRatio: "1774 / 887" }}>
+            <Image
+              src="/logo-full.jpeg"
+              alt="YALIS"
+              fill
+              priority
+              quality={100}
+              className="object-contain invert mix-blend-screen"
+              sizes="288px"
+            />
           </div>
 
-          {/* ── BRAND CONTENT ── */}
-          <div
-            className="flex-1 flex flex-col items-center justify-center gap-6 py-16 px-10 border-t md:border-t-0 border-white/[0.06]"
-            dir="rtl"
+          {/* STUDIO subtitle */}
+          <p
+            className="tracking-[0.5em] text-concrete/50 text-[10px] md:text-xs font-light -mt-4"
+            style={{ fontFamily: "Assistant, sans-serif" }}
           >
-            {/* Logo */}
-            <div className="w-44 md:w-52 lg:w-60 relative" style={{ aspectRatio: "1774 / 887" }}>
-              <Image
-                src="/logo-full.jpeg"
-                alt="YALIS"
-                fill
-                priority
-                quality={100}
-                className="object-contain invert mix-blend-screen"
-                sizes="240px"
-              />
-            </div>
+            S T U D I O
+          </p>
 
-            {/* STUDIO subtitle */}
-            <p
-              className="tracking-[0.5em] text-concrete/40 text-[10px] md:text-xs font-light -mt-3"
-              style={{ fontFamily: "Assistant, sans-serif" }}
+          {/* Divider */}
+          <div className="w-10 h-px bg-steel/50" />
+
+          {/* Tagline */}
+          <p className="label-ys text-steel/70 tracking-[0.2em] text-[10px] md:text-xs">
+            ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-3 mt-2">
+            <Link href="/products" className="btn-ys-solid px-8 py-3 text-sm text-center">
+              לצפייה במוצרים
+            </Link>
+            <a
+              href="https://wa.me/972528448870"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ys-outline px-8 py-3 text-sm text-center"
             >
-              S T U D I O
-            </p>
-
-            {/* Divider */}
-            <div className="w-10 h-px bg-steel/40" />
-
-            {/* Tagline */}
-            <p className="label-ys text-steel/60 tracking-[0.2em] text-center text-[10px] md:text-xs">
-              ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 mt-2">
-              <Link href="/products" className="btn-ys-solid px-8 py-3 text-sm text-center">
-                לצפייה במוצרים
-              </Link>
-              <a
-                href="https://wa.me/972528448870"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-ys-outline px-8 py-3 text-sm text-center"
-              >
-                פנו אלינו
-              </a>
-            </div>
+              פנו אלינו
+            </a>
           </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+          <div className="w-px h-12 bg-concrete/60 animate-pulse" />
         </div>
       </section>
 
