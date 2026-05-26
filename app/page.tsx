@@ -107,14 +107,13 @@ export default function HomePage() {
           PANEL STRIP — 4 horizontal panels
           ══════════════════════════════════════ */}
       <div className="grid grid-cols-4 h-64 md:h-80">
-        {(["0%", "33%", "67%", "100%"] as const).map((pos, i) => (
-          <div key={i} className="relative overflow-hidden">
+        {[1, 2, 3, 4].map((n) => (
+          <div key={n} className="relative overflow-hidden">
             <Image
-              src="/hero.jpeg"
+              src={`/panel-${n}.jpeg`}
               alt=""
               fill
-              className="object-cover"
-              style={{ objectPosition: `${pos} 50%` }}
+              className="object-cover object-center"
               sizes="25vw"
             />
           </div>
