@@ -27,7 +27,7 @@ export function Navbar() {
             alt="YALIS"
             width={72}
             height={28}
-            className="h-7 w-auto object-contain brightness-0 invert"
+            className="h-7 w-auto object-contain invert mix-blend-screen"
             priority
           />
         </Link>

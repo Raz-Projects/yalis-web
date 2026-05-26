@@ -24,7 +24,7 @@ function HeroPanel({
   className?: string
 }) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden min-h-0 ${className}`}>
       <Image
         src="/hero.jpeg"
         alt="YALIS"
@@ -33,7 +33,7 @@ function HeroPanel({
         quality={100}
         className="object-cover"
         style={{ objectPosition: `50% ${PANEL[panel]}` }}
-        sizes="(max-width: 768px) 100vw, 55vw"
+        sizes="(max-width: 768px) 100vw, 42vw"
       />
     </div>
   )
@@ -46,76 +46,74 @@ export default function HomePage() {
       <FloatingWhatsApp />
 
       {/* ══════════════════════════════════════
-          HERO — bento grid  +  brand strip
+          HERO — portrait film strip + brand
           ══════════════════════════════════════ */}
-      <section className="bg-black min-h-screen flex flex-col">
+      <section className="bg-black min-h-screen">
 
-        {/* ── BENTO GRID ── */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-[45fr_55fr] gap-1.5 p-1.5 min-h-0">
+        {/* dir="ltr" so image column always appears LEFT, brand RIGHT, regardless of RTL */}
+        <div className="min-h-screen flex flex-col md:flex-row" dir="ltr">
 
-          {/* ── MOBILE: panels 0 (dramatic), 2 (chair), 3 (steel texture) ── */}
-          <HeroPanel panel={0} className="md:hidden aspect-[4/3]" />
-          <HeroPanel panel={2} className="md:hidden aspect-[4/3]" />
-          <HeroPanel panel={3} className="md:hidden aspect-[4/3]" />
-
-          {/* ── DESKTOP LEFT column: panel 0 full height (dramatic light ray) ── */}
-          <HeroPanel panel={0} className="hidden md:block" />
-
-          {/* ── DESKTOP RIGHT column: chair (top) + panel 1 + panel 3 (bottom row) ── */}
-          <div className="hidden md:grid grid-rows-[58fr_42fr] gap-1.5 min-h-0">
-            <HeroPanel panel={2} />
-            <div className="grid grid-cols-2 gap-1.5 min-h-0">
-              <HeroPanel panel={1} />
-              <HeroPanel panel={3} />
-            </div>
-          </div>
-        </div>
-
-        {/* ── BRAND STRIP — completely separate from images ── */}
-        <div className="flex flex-col items-center justify-center gap-5 py-10 px-6 border-t border-white/[0.06]">
-
-          {/* Logo */}
-          <div className="w-48 md:w-56 lg:w-64 relative" style={{ aspectRatio: "1774 / 887" }}>
-            <Image
-              src="/logo-full.jpeg"
-              alt="YALIS"
-              fill
-              priority
-              quality={100}
-              className="object-contain invert mix-blend-screen"
-              sizes="256px"
-            />
+          {/* ── PORTRAIT PANEL STRIP ── */}
+          <div className="flex flex-col gap-[2px] md:w-[42%] md:min-h-screen">
+            {/* Mobile: 3 selected panels at 4:3 ratio */}
+            <HeroPanel panel={0} className="md:hidden aspect-[4/3]" />
+            <HeroPanel panel={2} className="md:hidden aspect-[4/3]" />
+            <HeroPanel panel={3} className="md:hidden aspect-[4/3]" />
+            {/* Desktop: all 4 panels filling full height equally */}
+            <HeroPanel panel={0} className="hidden md:flex md:flex-1" />
+            <HeroPanel panel={1} className="hidden md:flex md:flex-1" />
+            <HeroPanel panel={2} className="hidden md:flex md:flex-1" />
+            <HeroPanel panel={3} className="hidden md:flex md:flex-1" />
           </div>
 
-          {/* STUDIO subtitle */}
-          <p
-            className="tracking-[0.5em] text-[#D6D3CE]/50 text-[10px] md:text-xs font-light -mt-2"
-            style={{ fontFamily: "Assistant, sans-serif" }}
+          {/* ── BRAND CONTENT ── */}
+          <div
+            className="flex-1 flex flex-col items-center justify-center gap-6 py-16 px-10 border-t md:border-t-0 border-white/[0.06]"
+            dir="rtl"
           >
-            S T U D I O
-          </p>
+            {/* Logo */}
+            <div className="w-44 md:w-52 lg:w-60 relative" style={{ aspectRatio: "1774 / 887" }}>
+              <Image
+                src="/logo-full.jpeg"
+                alt="YALIS"
+                fill
+                priority
+                quality={100}
+                className="object-contain invert mix-blend-screen"
+                sizes="240px"
+              />
+            </div>
 
-          {/* Divider */}
-          <div className="w-10 h-px bg-steel/40" />
-
-          {/* Tagline */}
-          <p className="label-ys text-steel/70 tracking-[0.2em] text-center text-[10px] md:text-xs">
-            ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3 mt-1">
-            <Link href="/products" className="btn-ys-solid px-8 py-3 text-sm text-center">
-              לצפייה במוצרים
-            </Link>
-            <a
-              href="https://wa.me/972528448870"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ys-outline px-8 py-3 text-sm text-center"
+            {/* STUDIO subtitle */}
+            <p
+              className="tracking-[0.5em] text-concrete/40 text-[10px] md:text-xs font-light -mt-3"
+              style={{ fontFamily: "Assistant, sans-serif" }}
             >
-              פנו אלינו
-            </a>
+              S T U D I O
+            </p>
+
+            {/* Divider */}
+            <div className="w-10 h-px bg-steel/40" />
+
+            {/* Tagline */}
+            <p className="label-ys text-steel/60 tracking-[0.2em] text-center text-[10px] md:text-xs">
+              ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-2">
+              <Link href="/products" className="btn-ys-solid px-8 py-3 text-sm text-center">
+                לצפייה במוצרים
+              </Link>
+              <a
+                href="https://wa.me/972528448870"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ys-outline px-8 py-3 text-sm text-center"
+              >
+                פנו אלינו
+              </a>
+            </div>
           </div>
         </div>
       </section>
