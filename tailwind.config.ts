@@ -12,9 +12,9 @@ export default {
     extend: {
       colors: {
         onyx: {
-          DEFAULT: "#0A0908",
-          light: "#1A1918",
-          dark: "#050504",
+          DEFAULT: "#1C1917",
+          light: "#252220",
+          dark: "#111009",
         },
         steel: {
           DEFAULT: "#8B8680",

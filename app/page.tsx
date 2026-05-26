@@ -29,12 +29,12 @@ export default function HomePage() {
           sizes="100vw"
         />
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-onyx/65" />
 
         {/* Brand content */}
         <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center" dir="rtl">
           {/* Black card: logo + studio + divider + tagline */}
-          <div className="bg-black/80 px-10 py-8 flex flex-col items-center gap-5">
+          <div className="bg-onyx/80 px-10 py-8 flex flex-col items-center gap-5">
             {/* Logo */}
             <div className="w-52 md:w-64 lg:w-72 relative" style={{ aspectRatio: "1774 / 887" }}>
               <Image
@@ -90,7 +90,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           ABOUT
           ══════════════════════════════════════ */}
-      <section id="about" className="py-24 px-6 bg-black">
+      <section id="about" className="py-24 px-6 bg-onyx">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <p className="label-ys text-steel">YALIS — ייצור ישראלי</p>
           <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete leading-snug">
@@ -104,9 +104,23 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════
+          COVER PANELS — brand image strip
+          ══════════════════════════════════════ */}
+      <section className="relative h-[70vh] overflow-hidden">
+        <Image
+          src="/cover-panels.jpeg"
+          alt="YALIS Studio"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-onyx/30" />
+      </section>
+
+      {/* ══════════════════════════════════════
           COLLECTIONS
           ══════════════════════════════════════ */}
-      <section id="collections" className="py-16 px-6 bg-black">
+      <section id="collections" className="py-16 px-6 bg-onyx">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
             <Link href="/products?collection=5mm" className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/5">
@@ -136,7 +150,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           FEATURED PRODUCTS
           ══════════════════════════════════════ */}
-      <section className="py-20 px-6 bg-black">
+      <section className="py-20 px-6 bg-onyx">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-12">
             <div>
@@ -159,7 +173,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           CTA
           ══════════════════════════════════════ */}
-      <section id="contact" className="py-24 px-6 bg-black">
+      <section id="contact" className="py-24 px-6 bg-onyx">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="label-ys text-steel">התאמה אישית</p>
           <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete">
