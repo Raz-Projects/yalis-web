@@ -41,7 +41,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ + עץ שחור",
     dimensions: { width: 48, depth: 50, height: 85 },
     images: ["/products/p20.jpeg"],
-    priceFrom: 6800,
+    priceFrom: 2600,
     customizable: true,
   },
 
@@ -58,7 +58,7 @@ export const products: Product[] = [
     material: "עץ מלא + נירוסטה 5 מ\"מ",
     dimensions: { width: 52, depth: 54, height: 88 },
     images: ["/products/p23.jpeg", "/products/p24.jpeg"],
-    priceFrom: 7200,
+    priceFrom: 2600,
     customizable: true,
   },
 
@@ -75,7 +75,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ + ריפוד לבחירה",
     dimensions: { width: 55, depth: 55, height: 38 },
     images: ["/products/p27.jpeg", "/products/p28.jpeg"],
-    priceFrom: 3800,
+    priceFrom: 2600,
     customizable: true,
   },
 
@@ -92,7 +92,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ",
     dimensions: { width: 90, depth: 30, height: 180 },
     images: ["/products/p03.jpeg"],
-    priceFrom: 5200,
+    priceFrom: 2800,
     customizable: true,
   },
 
@@ -109,7 +109,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ",
     dimensions: { width: 120, depth: 35, height: 75 },
     images: ["/products/p07.jpeg", "/products/p08.jpeg"],
-    priceFrom: 8500,
+    priceFrom: 2800,
     customizable: true,
   },
 
@@ -126,7 +126,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ + גלגלי נירוסטה",
     dimensions: { width: 160, depth: 75, height: 75 },
     images: ["/products/p10.jpeg", "/products/p11.jpeg"],
-    priceFrom: 12000,
+    priceFrom: 2800,
     customizable: true,
   },
 
@@ -143,7 +143,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ",
     dimensions: { width: 180, depth: 80, height: 75 },
     images: ["/products/p01.jpeg"],
-    priceFrom: 16000,
+    priceFrom: 2800,
     customizable: true,
   },
 
@@ -160,7 +160,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ + עץ מלא",
     dimensions: { width: 120, depth: 60, height: 38 },
     images: ["/products/p12.jpeg", "/products/p19.jpeg"],
-    priceFrom: 9500,
+    priceFrom: 2800,
     customizable: true,
   },
 
@@ -177,7 +177,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ",
     dimensions: { width: 90, depth: 50, height: 42 },
     images: ["/products/p09.jpeg"],
-    priceFrom: 7800,
+    priceFrom: 2800,
     customizable: true,
   },
 
@@ -211,7 +211,7 @@ export const products: Product[] = [
     material: "נירוסטה 5 מ\"מ",
     dimensions: { width: 40, depth: 40, height: 55 },
     images: ["/products/p17.jpeg", "/products/p18.jpeg"],
-    priceFrom: 3400,
+    priceFrom: 2600,
     customizable: true,
   },
 
@@ -232,7 +232,7 @@ export const products: Product[] = [
     material: "עץ חי + נירוסטה 3 מ\"מ",
     dimensions: { width: 80, depth: 28, height: 190 },
     images: ["/products/p31.jpeg"],
-    priceFrom: 8900,
+    priceFrom: 2800,
     customizable: true,
   },
 
@@ -317,7 +317,7 @@ export const products: Product[] = [
     material: "נירוסטה 3 מ\"מ",
     dimensions: { width: 80, depth: 20, height: 3, note: "סט של 3" },
     images: ["/products/p35.jpeg"],
-    priceFrom: 2400,
+    priceFrom: 2200,
     customizable: true,
   },
 
@@ -351,7 +351,7 @@ export const products: Product[] = [
     material: "נירוסטה 3 מ\"מ",
     dimensions: { width: 20, depth: 20, height: 40 },
     images: ["/products/p02.jpeg"],
-    priceFrom: 2200,
+    priceFrom: 1800,
     customizable: true,
   },
 
@@ -368,7 +368,7 @@ export const products: Product[] = [
     material: "נירוסטה 3 מ\"מ + LED",
     dimensions: { width: 100, depth: 8, height: 8, note: "אורך לפי הזמנה" },
     images: ["/products/p36.jpeg"],
-    priceFrom: 3200,
+    priceFrom: 2400,
     customizable: true,
   },
 
@@ -402,7 +402,7 @@ export const products: Product[] = [
     material: "נירוסטה 3 מ\"מ + עץ מלא",
     dimensions: { width: 100, depth: 25, height: 150, note: "מספר מדפים לפי הזמנה" },
     images: ["/products/p35.jpeg"],
-    priceFrom: 4800,
+    priceFrom: 2600,
     customizable: true,
   },
 
