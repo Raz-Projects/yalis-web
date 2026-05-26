@@ -34,7 +34,7 @@ export default function HomePage() {
         {/* Brand content */}
         <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center" dir="rtl">
           {/* Black card: logo + studio + divider + tagline */}
-          <div className="bg-onyx/80 px-10 py-8 flex flex-col items-center gap-5">
+          <div className="bg-onyx/80 px-6 sm:px-10 py-6 sm:py-8 flex flex-col items-center gap-5 w-full max-w-xs sm:max-w-none sm:w-auto">
             {/* Logo */}
             <div className="w-52 md:w-64 lg:w-72 relative" style={{ aspectRatio: "1774 / 887" }}>
               <Image
@@ -106,15 +106,15 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           PANEL STRIP — 4 horizontal panels
           ══════════════════════════════════════ */}
-      <div className="grid grid-cols-4 h-64 md:h-80">
+      <div className="grid grid-cols-2 sm:grid-cols-4">
         {[1, 2, 3, 4].map((n) => (
-          <div key={n} className="relative overflow-hidden">
+          <div key={n} className="relative h-44 sm:h-64 md:h-80 overflow-hidden">
             <Image
               src={`/panel-${n}.jpeg`}
               alt=""
               fill
               className="object-cover object-center"
-              sizes="25vw"
+              sizes="(max-width: 640px) 50vw, 25vw"
             />
           </div>
         ))}
