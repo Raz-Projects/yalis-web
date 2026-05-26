@@ -8,106 +8,125 @@ import { products } from "@/lib/products"
 
 const featured = products.slice(0, 6)
 
+// hero.jpeg = 493×1452 portrait, 4 equal panels.
+// object-position values to centre each panel when the image is clipped:
+// panel 1 (top 25%)    → 0%
+// panel 2 (25–50%)     → 33%
+// panel 3 (50–75%)     → 67%
+// panel 4 (bottom 25%) → 100%
+const PANEL = ["0%", "33%", "67%", "100%"] as const
+
+function HeroPanel({
+  panel,
+  className = "",
+}: {
+  panel: 0 | 1 | 2 | 3
+  className?: string
+}) {
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      <Image
+        src="/hero.jpeg"
+        alt="YALIS"
+        fill
+        priority
+        quality={100}
+        className="object-cover"
+        style={{ objectPosition: `50% ${PANEL[panel]}` }}
+        sizes="(max-width: 768px) 100vw, 55vw"
+      />
+    </div>
+  )
+}
+
 export default function HomePage() {
   return (
     <>
       <Navbar />
       <FloatingWhatsApp />
 
-      {/* ─── HERO — full-screen cover slide ─── */}
-      <section className="relative w-full h-screen overflow-hidden">
+      {/* ══════════════════════════════════════
+          HERO — bento grid  +  brand strip
+          ══════════════════════════════════════ */}
+      <section className="bg-black min-h-screen flex flex-col">
 
-        {/* Background: the 4-panel cover image */}
-        <Image
-          src="/hero.jpeg"
-          alt="YALIS Studio"
-          fill
-          priority
-          quality={100}
-          /*
-            Desktop (landscape): image is portrait → object-contain centres it
-            on black bg, giving the "slide" effect.
-            Mobile (portrait): object-cover fills naturally.
-          */
-          className="
-            hidden lg:block
-            object-contain object-center
-          "
-          sizes="100vw"
-        />
-        {/* Mobile version: cover so it fills the portrait screen */}
-        <Image
-          src="/hero.jpeg"
-          alt="YALIS Studio"
-          fill
-          priority
-          quality={100}
-          className="
-            lg:hidden
-            object-cover object-top
-          "
-          sizes="100vw"
-        />
+        {/* ── BENTO GRID ── */}
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-1.5 p-1.5 min-h-0">
 
-        {/* Dark vignette — heavier at bottom for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30 lg:via-transparent lg:to-transparent" />
-        {/* Desktop: side vignettes to frame the portrait image */}
-        <div className="hidden lg:block absolute inset-0 bg-[radial-gradient(ellipse_60%_100%_at_50%_50%,transparent_60%,black_100%)]" />
+          {/* ── MOBILE: show 3 representative panels stacked ── */}
+          {/* panel 1 */}
+          <HeroPanel panel={0} className="md:hidden aspect-[4/3]" />
+          {/* panel 3 */}
+          <HeroPanel panel={2} className="md:hidden aspect-[4/3]" />
+          {/* panel 4 */}
+          <HeroPanel panel={3} className="md:hidden aspect-[4/3]" />
 
-        {/* ── LOGO + CTA overlay — centred on slide ── */}
-        <div className="absolute inset-0 flex flex-col items-center justify-end lg:justify-center pb-16 lg:pb-0 px-6">
-
-          {/* Logo */}
-          <div className="w-64 md:w-80 lg:w-72 xl:w-80 mb-4 lg:mb-6 animate-fade-in">
-            <div className="relative w-full" style={{ aspectRatio: "1774 / 887" }}>
-              <Image
-                src="/logo-full.jpeg"
-                alt="YALIS"
-                fill
-                priority
-                quality={100}
-                className="object-contain invert mix-blend-screen"
-                sizes="320px"
-              />
-            </div>
-            <p className="text-center text-[#D6D3CE]/60 tracking-[0.45em] text-[10px] lg:text-xs mt-2 font-light"
-              style={{ fontFamily: "Assistant, sans-serif" }}>
-              S T U D I O
-            </p>
+          {/* ── DESKTOP LEFT column: panels 1 + 2 ── */}
+          <div className="hidden md:grid grid-rows-[58fr_42fr] gap-1.5 min-h-0">
+            <HeroPanel panel={0} />
+            <HeroPanel panel={1} />
           </div>
 
-          {/* Thin rule */}
-          <div className="w-12 h-px bg-steel/50 mb-6 lg:mb-8 animate-fade-in" style={{ animationDelay: "150ms" }} />
+          {/* ── DESKTOP RIGHT column: panels 1-crop, 3, 4 ── */}
+          <div className="hidden md:grid grid-rows-[18fr_41fr_41fr] gap-1.5 min-h-0">
+            <HeroPanel panel={0} />
+            <HeroPanel panel={2} />
+            <HeroPanel panel={3} />
+          </div>
+        </div>
+
+        {/* ── BRAND STRIP — completely separate from images ── */}
+        <div className="flex flex-col items-center justify-center gap-5 py-10 px-6 border-t border-white/[0.06]">
+
+          {/* Logo */}
+          <div className="w-48 md:w-56 lg:w-64 relative" style={{ aspectRatio: "1774 / 887" }}>
+            <Image
+              src="/logo-full.jpeg"
+              alt="YALIS"
+              fill
+              priority
+              quality={100}
+              className="object-contain invert mix-blend-screen"
+              sizes="256px"
+            />
+          </div>
+
+          {/* STUDIO subtitle */}
+          <p
+            className="tracking-[0.5em] text-[#D6D3CE]/50 text-[10px] md:text-xs font-light -mt-2"
+            style={{ fontFamily: "Assistant, sans-serif" }}
+          >
+            S T U D I O
+          </p>
+
+          {/* Divider */}
+          <div className="w-10 h-px bg-steel/40" />
 
           {/* Tagline */}
-          <p className="label-ys text-steel/80 tracking-[0.25em] text-center mb-8 lg:mb-10 animate-fade-in"
-            style={{ animationDelay: "200ms" }}>
-            ריהוט תעשייתי יוקרתי · ייצור ישראלי
+          <p className="label-ys text-steel/70 tracking-[0.2em] text-center text-[10px] md:text-xs">
+            ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3 animate-fade-in" style={{ animationDelay: "300ms" }}>
-            <Link href="/products" className="btn-ys-solid px-10 py-3.5 text-sm text-center">
+          <div className="flex flex-col sm:flex-row gap-3 mt-1">
+            <Link href="/products" className="btn-ys-solid px-8 py-3 text-sm text-center">
               לצפייה במוצרים
             </Link>
             <a
               href="https://wa.me/972528448870"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ys-outline px-10 py-3.5 text-sm text-center"
+              className="btn-ys-outline px-8 py-3 text-sm text-center"
             >
               פנו אלינו
             </a>
           </div>
         </div>
-
-        {/* Scroll hint */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-scroll opacity-40">
-          <div className="w-px h-10 bg-concrete" />
-        </div>
       </section>
 
-      {/* ─── Brand statement ─── */}
+      {/* ══════════════════════════════════════
+          ABOUT
+          ══════════════════════════════════════ */}
       <section id="about" className="py-24 px-6 bg-black">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <p className="label-ys text-steel">YALIS — ייצור ישראלי</p>
@@ -121,7 +140,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── Collections ─── */}
+      {/* ══════════════════════════════════════
+          COLLECTIONS
+          ══════════════════════════════════════ */}
       <section id="collections" className="py-16 px-6 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
@@ -149,7 +170,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── Featured products ─── */}
+      {/* ══════════════════════════════════════
+          FEATURED PRODUCTS
+          ══════════════════════════════════════ */}
       <section className="py-20 px-6 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-12">
@@ -170,7 +193,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── CTA ─── */}
+      {/* ══════════════════════════════════════
+          CTA
+          ══════════════════════════════════════ */}
       <section id="contact" className="py-24 px-6 bg-black">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="label-ys text-steel">התאמה אישית</p>
