@@ -14,94 +14,96 @@ export default function HomePage() {
       <Navbar />
       <FloatingWhatsApp />
 
-      {/* ─── HERO — split layout ─── */}
-      <section className="min-h-screen flex flex-col lg:flex-row">
+      {/* ─── HERO — full-screen cover slide ─── */}
+      <section className="relative w-full h-screen overflow-hidden">
 
-        {/* Left / top — cover image */}
-        <div className="relative w-full lg:w-1/2 h-[55vw] max-h-[70vh] lg:max-h-none lg:h-screen lg:sticky lg:top-0 flex-shrink-0 overflow-hidden">
-          <Image
-            src="/hero.jpeg"
-            alt="YALIS"
-            fill
-            priority
-            className="object-cover object-top"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/70 to-transparent lg:hidden" />
-        </div>
+        {/* Background: the 4-panel cover image */}
+        <Image
+          src="/hero.jpeg"
+          alt="YALIS Studio"
+          fill
+          priority
+          quality={100}
+          /*
+            Desktop (landscape): image is portrait → object-contain centres it
+            on black bg, giving the "slide" effect.
+            Mobile (portrait): object-cover fills naturally.
+          */
+          className="
+            hidden lg:block
+            object-contain object-center
+          "
+          sizes="100vw"
+        />
+        {/* Mobile version: cover so it fills the portrait screen */}
+        <Image
+          src="/hero.jpeg"
+          alt="YALIS Studio"
+          fill
+          priority
+          quality={100}
+          className="
+            lg:hidden
+            object-cover object-top
+          "
+          sizes="100vw"
+        />
 
-        {/* Right / bottom — brand content */}
-        <div className="flex-1 flex flex-col items-center justify-center px-8 md:px-16 lg:px-20 py-16 lg:py-0 bg-black gap-10 lg:gap-14">
+        {/* Dark vignette — heavier at bottom for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30 lg:via-transparent lg:to-transparent" />
+        {/* Desktop: side vignettes to frame the portrait image */}
+        <div className="hidden lg:block absolute inset-0 bg-[radial-gradient(ellipse_60%_100%_at_50%_50%,transparent_60%,black_100%)]" />
 
-          {/* ── LOGO — max quality, no stretch ── */}
-          {/*
-            invert(1): black→white, white→black
-            mix-blend-mode: screen: the now-black bg becomes transparent
-            Result: crisp white wordmark at any screen size, zero blurring
-          */}
-          <div className="w-full max-w-sm lg:max-w-md xl:max-w-lg animate-fade-up">
+        {/* ── LOGO + CTA overlay — centred on slide ── */}
+        <div className="absolute inset-0 flex flex-col items-center justify-end lg:justify-center pb-16 lg:pb-0 px-6">
+
+          {/* Logo */}
+          <div className="w-64 md:w-80 lg:w-72 xl:w-80 mb-4 lg:mb-6 animate-fade-in">
             <div className="relative w-full" style={{ aspectRatio: "1774 / 887" }}>
               <Image
                 src="/logo-full.jpeg"
                 alt="YALIS"
                 fill
                 priority
-                className="object-contain invert mix-blend-screen"
-                sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 35vw"
                 quality={100}
+                className="object-contain invert mix-blend-screen"
+                sizes="320px"
               />
             </div>
-            {/* STUDIO subtitle — matches the brand identity exactly */}
-            <p
-              className="text-center tracking-[0.5em] text-[#D6D3CE]/70 mt-3 text-xs lg:text-sm font-light"
-              style={{ fontFamily: "'Assistant', sans-serif", letterSpacing: "0.5em" }}
-            >
+            <p className="text-center text-[#D6D3CE]/60 tracking-[0.45em] text-[10px] lg:text-xs mt-2 font-light"
+              style={{ fontFamily: "Assistant, sans-serif" }}>
               S T U D I O
             </p>
           </div>
 
-          {/* Divider */}
-          <div className="w-16 h-px bg-steel/40" />
+          {/* Thin rule */}
+          <div className="w-12 h-px bg-steel/50 mb-6 lg:mb-8 animate-fade-in" style={{ animationDelay: "150ms" }} />
 
-          {/* Tagline + description */}
-          <div className="text-center max-w-md animate-fade-up" style={{ animationDelay: "120ms" }}>
-            <p className="label-ys text-steel mb-5 tracking-[0.25em]">ריהוט תעשייתי יוקרתי</p>
-            <p className="font-assistant text-sm text-concrete/55 leading-relaxed">
-              כל פריט מיוצר בישראל לפי מידות ודרישות אישיות.
-              <br />
-              קולקציות 5mm ו-3mm נירוסטה — שולחנות, מדפים, כיסאות ועוד.
-            </p>
-          </div>
+          {/* Tagline */}
+          <p className="label-ys text-steel/80 tracking-[0.25em] text-center mb-8 lg:mb-10 animate-fade-in"
+            style={{ animationDelay: "200ms" }}>
+            ריהוט תעשייתי יוקרתי · ייצור ישראלי
+          </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-up" style={{ animationDelay: "200ms" }}>
-            <Link href="/products" className="btn-ys-solid px-10 py-4 text-center">
+          <div className="flex flex-col sm:flex-row gap-3 animate-fade-in" style={{ animationDelay: "300ms" }}>
+            <Link href="/products" className="btn-ys-solid px-10 py-3.5 text-sm text-center">
               לצפייה במוצרים
             </Link>
             <a
               href="https://wa.me/972528448870"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ys-outline px-10 py-4 text-center"
+              className="btn-ys-outline px-10 py-3.5 text-sm text-center"
             >
               פנו אלינו
             </a>
           </div>
+        </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 border-t border-white/10 pt-8 w-full max-w-sm lg:max-w-md animate-fade-up" style={{ animationDelay: "280ms" }}>
-            {[
-              { num: "22", label: "מוצרים" },
-              { num: "2", label: "קולקציות" },
-              { num: "100%", label: "ישראלי" },
-            ].map(s => (
-              <div key={s.label} className="text-center">
-                <p className="font-cormorant text-3xl text-steel font-light">{s.num}</p>
-                <p className="font-assistant text-xs text-concrete/40 mt-1">{s.label}</p>
-              </div>
-            ))}
-          </div>
-
+        {/* Scroll hint */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-scroll opacity-40">
+          <div className="w-px h-10 bg-concrete" />
         </div>
       </section>
 
