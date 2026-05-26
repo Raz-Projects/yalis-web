@@ -12,18 +12,18 @@ export default {
     extend: {
       colors: {
         onyx: {
-          DEFAULT: "#0B0B0B",
-          light: "#1A1A1A",
-          dark: "#060606",
+          DEFAULT: "#0A0908",
+          light: "#1A1918",
+          dark: "#050504",
         },
         steel: {
-          DEFAULT: "#8DBDBD",
-          light: "#AECECE",
-          dark: "#6A9999",
+          DEFAULT: "#8B8680",
+          light: "#A8A4A0",
+          dark: "#6A6663",
         },
         concrete: {
-          DEFAULT: "#D6D3CE",
-          light: "#E8E6E2",
+          DEFAULT: "#E4E0DB",
+          light: "#F0EDE9",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

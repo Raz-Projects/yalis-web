@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    --color-onyx:       #0B0B0B;
-    --color-onyx-mid:   #161616;
-    --color-onyx-light: #222222;
-    --color-steel:      #8DBDBD;
-    --color-steel-light:#AECECE;
-    --color-concrete:   #D6D3CE;
-    --color-offwhite:   #F2F1EE;
+    --color-onyx:       #0A0908;
+    --color-onyx-mid:   #161514;
+    --color-onyx-light: #201F1E;
+    --color-steel:      #8B8680;
+    --color-steel-light:#A8A4A0;
+    --color-concrete:   #E4E0DB;
+    --color-offwhite:   #F0EDE9;
 
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -214,12 +214,12 @@
 ───────────────────────────────────────── */
 .product-card {
   background: var(--color-onyx-mid);
-  border: 1px solid rgba(141, 189, 189, 0.12);
+  border: 1px solid rgba(139, 134, 128, 0.12);
   transition: border-color 0.4s ease, transform 0.4s ease;
   cursor: pointer;
 }
 .product-card:hover {
-  border-color: rgba(141, 189, 189, 0.35);
+  border-color: rgba(139, 134, 128, 0.35);
   transform: translateY(-2px);
 }
 
@@ -233,7 +233,7 @@
   height: 100vh;
   width: min(420px, 100vw);
   background: var(--color-onyx-mid);
-  border-right: 1px solid rgba(141,189,189,0.2);
+  border-right: 1px solid rgba(139,134,128,0.2);
   z-index: 200;
   transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
   transform: translateX(-100%);
@@ -274,7 +274,7 @@
 .badge-collection {
   display: inline-block;
   padding: 4px 10px;
-  border: 1px solid rgba(141,189,189,0.4);
+  border: 1px solid rgba(139,134,128,0.4);
   font-family: var(--font-assistant), sans-serif;
   font-size: 0.7rem;
   letter-spacing: 0.2em;

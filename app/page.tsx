@@ -51,27 +51,23 @@ export default function HomePage() {
       <section className="bg-black min-h-screen flex flex-col">
 
         {/* ── BENTO GRID ── */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-1.5 p-1.5 min-h-0">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-[45fr_55fr] gap-1.5 p-1.5 min-h-0">
 
-          {/* ── MOBILE: show 3 representative panels stacked ── */}
-          {/* panel 1 */}
+          {/* ── MOBILE: panels 0 (dramatic), 2 (chair), 3 (steel texture) ── */}
           <HeroPanel panel={0} className="md:hidden aspect-[4/3]" />
-          {/* panel 3 */}
           <HeroPanel panel={2} className="md:hidden aspect-[4/3]" />
-          {/* panel 4 */}
           <HeroPanel panel={3} className="md:hidden aspect-[4/3]" />
 
-          {/* ── DESKTOP LEFT column: panels 1 + 2 ── */}
-          <div className="hidden md:grid grid-rows-[58fr_42fr] gap-1.5 min-h-0">
-            <HeroPanel panel={0} />
-            <HeroPanel panel={1} />
-          </div>
+          {/* ── DESKTOP LEFT column: panel 0 full height (dramatic light ray) ── */}
+          <HeroPanel panel={0} className="hidden md:block" />
 
-          {/* ── DESKTOP RIGHT column: panels 1-crop, 3, 4 ── */}
-          <div className="hidden md:grid grid-rows-[18fr_41fr_41fr] gap-1.5 min-h-0">
-            <HeroPanel panel={0} />
+          {/* ── DESKTOP RIGHT column: chair (top) + panel 1 + panel 3 (bottom row) ── */}
+          <div className="hidden md:grid grid-rows-[58fr_42fr] gap-1.5 min-h-0">
             <HeroPanel panel={2} />
-            <HeroPanel panel={3} />
+            <div className="grid grid-cols-2 gap-1.5 min-h-0">
+              <HeroPanel panel={1} />
+              <HeroPanel panel={3} />
+            </div>
           </div>
         </div>
 
@@ -147,7 +143,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
             <Link href="/products?collection=5mm" className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/5">
-              <Image src="/products/p07.jpeg" alt="קולקציית 5mm" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
+              <Image src="/products/p20.jpeg" alt="קולקציית 5mm" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-8">
                 <p className="label-ys text-steel mb-2">קולקציה</p>
@@ -157,7 +153,7 @@ export default function HomePage() {
               </div>
             </Link>
             <Link href="/products?collection=3mm" className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/5">
-              <Image src="/products/p22.jpeg" alt="קולקציית 3mm" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
+              <Image src="/products/p31.jpeg" alt="קולקציית 3mm" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-8">
                 <p className="label-ys text-steel mb-2">קולקציה</p>
