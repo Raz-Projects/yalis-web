@@ -33,34 +33,37 @@ export default function HomePage() {
 
         {/* Brand content */}
         <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center" dir="rtl">
-          {/* Logo */}
-          <div className="w-52 md:w-64 lg:w-72 relative" style={{ aspectRatio: "1774 / 887" }}>
-            <Image
-              src="/logo-full.jpeg"
-              alt="YALIS"
-              fill
-              priority
-              quality={100}
-              className="object-contain invert mix-blend-screen"
-              sizes="288px"
-            />
+          {/* Black card: logo + studio + divider + tagline */}
+          <div className="bg-black/80 px-10 py-8 flex flex-col items-center gap-5">
+            {/* Logo */}
+            <div className="w-52 md:w-64 lg:w-72 relative" style={{ aspectRatio: "1774 / 887" }}>
+              <Image
+                src="/logo-full.jpeg"
+                alt="YALIS"
+                fill
+                priority
+                quality={100}
+                className="object-contain invert mix-blend-screen"
+                sizes="288px"
+              />
+            </div>
+
+            {/* STUDIO subtitle */}
+            <p
+              className="tracking-[0.5em] text-concrete/50 text-[10px] md:text-xs font-light -mt-2"
+              style={{ fontFamily: "Assistant, sans-serif" }}
+            >
+              S T U D I O
+            </p>
+
+            {/* Divider */}
+            <div className="w-10 h-px bg-steel/50" />
+
+            {/* Tagline */}
+            <p className="label-ys text-steel/70 tracking-[0.2em] text-[10px] md:text-xs">
+              ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
+            </p>
           </div>
-
-          {/* STUDIO subtitle */}
-          <p
-            className="tracking-[0.5em] text-concrete/50 text-[10px] md:text-xs font-light -mt-4"
-            style={{ fontFamily: "Assistant, sans-serif" }}
-          >
-            S T U D I O
-          </p>
-
-          {/* Divider */}
-          <div className="w-10 h-px bg-steel/50" />
-
-          {/* Tagline */}
-          <p className="label-ys text-steel/70 tracking-[0.2em] text-[10px] md:text-xs">
-            ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
-          </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-3 mt-2">
