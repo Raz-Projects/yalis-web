@@ -104,18 +104,22 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════
-          COVER PANELS — brand image strip
+          PANEL STRIP — 4 horizontal panels
           ══════════════════════════════════════ */}
-      <section className="relative h-[70vh] overflow-hidden">
-        <Image
-          src="/cover-panels.jpeg"
-          alt="YALIS Studio"
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-onyx/30" />
-      </section>
+      <div className="grid grid-cols-4 h-64 md:h-80">
+        {(["0%", "33%", "67%", "100%"] as const).map((pos, i) => (
+          <div key={i} className="relative overflow-hidden">
+            <Image
+              src="/hero.jpeg"
+              alt=""
+              fill
+              className="object-cover"
+              style={{ objectPosition: `${pos} 50%` }}
+              sizes="25vw"
+            />
+          </div>
+        ))}
+      </div>
 
       {/* ══════════════════════════════════════
           COLLECTIONS
