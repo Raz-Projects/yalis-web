@@ -17,7 +17,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           HERO — full-screen brand board
           ══════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section id="main-content" tabIndex={-1} className="relative min-h-screen flex items-center justify-center overflow-hidden focus:outline-none">
         {/* Background */}
         <Image
           src="/brand-board.jpeg"
@@ -60,7 +60,7 @@ export default function HomePage() {
             <div className="w-10 h-px bg-steel/50" />
 
             {/* Tagline */}
-            <p className="label-ys text-steel/70 tracking-[0.2em] text-[10px] md:text-xs">
+            <p className="label-ys text-steel-light/70 tracking-[0.2em] text-[10px] md:text-xs">
               ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
             </p>
           </div>
@@ -90,14 +90,14 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           ABOUT
           ══════════════════════════════════════ */}
-      <section id="about" className="py-24 px-6 bg-onyx">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <p className="label-ys text-steel">YALIS — ייצור ישראלי</p>
-          <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete leading-snug">
+      <section id="about" className="py-28 md:py-36 px-6 bg-onyx">
+        <div className="max-w-4xl mx-auto text-center space-y-7">
+          <p className="label-ys text-steel-light">YALIS — ייצור ישראלי</p>
+          <h2 className="font-cormorant text-4xl md:text-6xl font-light text-concrete">
             ריהוט שנבנה להישאר
           </h2>
           <div className="ys-divider" />
-          <p className="font-assistant text-base text-concrete/60 leading-relaxed max-w-2xl mx-auto">
+          <p className="font-assistant text-base md:text-lg text-concrete/70 text-pretty leading-relaxed max-w-2xl mx-auto">
             אנחנו מייצרים ריהוט מנירוסטה ועץ בעבודת יד, עם תשומת לב לכל פרט. כל מוצר מותאם אישית לפי הצרכים שלך — גודל, גימור, חומר. המחיר נקבע בשיחה ישירה, ואין פשרות על האיכות.
           </p>
         </div>
@@ -123,14 +123,14 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           COLLECTIONS
           ══════════════════════════════════════ */}
-      <section id="collections" className="py-16 px-6 bg-onyx">
+      <section id="collections" className="py-20 md:py-24 px-6 bg-onyx">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-6">
             <Link href="/products?collection=5mm" className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/5">
               <Image src="/products/p20.jpeg" alt="קולקציית 5mm" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-8">
-                <p className="label-ys text-steel mb-2">קולקציה</p>
+                <p className="label-ys text-steel-light mb-2">קולקציה</p>
                 <h3 className="font-cormorant text-3xl font-light text-concrete">5mm Steel</h3>
                 <p className="font-assistant text-sm text-concrete/60 mt-1">שולחנות, כיסאות, קונסולות</p>
                 <p className="steel-underline mt-4 text-sm text-concrete/70 group-hover:text-concrete transition-colors">לצפייה בקולקציה</p>
@@ -140,7 +140,7 @@ export default function HomePage() {
               <Image src="/products/p31.jpeg" alt="קולקציית 3mm" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-8">
-                <p className="label-ys text-steel mb-2">קולקציה</p>
+                <p className="label-ys text-steel-light mb-2">קולקציה</p>
                 <h3 className="font-cormorant text-3xl font-light text-concrete">3mm Steel</h3>
                 <p className="font-assistant text-sm text-concrete/60 mt-1">מדפים, מנורות, מסגרות</p>
                 <p className="steel-underline mt-4 text-sm text-concrete/70 group-hover:text-concrete transition-colors">לצפייה בקולקציה</p>
@@ -153,11 +153,11 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           FEATURED PRODUCTS
           ══════════════════════════════════════ */}
-      <section className="py-20 px-6 bg-onyx">
+      <section className="py-24 md:py-28 px-6 bg-onyx">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-end justify-between mb-12">
+          <div className="flex items-end justify-between mb-14">
             <div>
-              <p className="label-ys text-steel mb-3">מוצרים נבחרים</p>
+              <p className="label-ys text-steel-light mb-3">מוצרים נבחרים</p>
               <h2 className="font-cormorant text-4xl font-light text-concrete">מהקולקציה</h2>
             </div>
             <Link href="/products" className="btn-ys-ghost text-sm hidden md:flex">כל המוצרים ←</Link>
@@ -176,13 +176,13 @@ export default function HomePage() {
       {/* ══════════════════════════════════════
           CTA
           ══════════════════════════════════════ */}
-      <section id="contact" className="py-24 px-6 bg-onyx">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
-          <p className="label-ys text-steel">התאמה אישית</p>
-          <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete">
+      <section id="contact" className="py-28 md:py-36 px-6 bg-onyx border-t border-white/5">
+        <div className="max-w-3xl mx-auto text-center space-y-7">
+          <p className="label-ys text-steel-light">התאמה אישית</p>
+          <h2 className="font-cormorant text-4xl md:text-6xl font-light text-concrete">
             יש לכם רעיון?<br />בואו נדבר.
           </h2>
-          <p className="font-assistant text-base text-concrete/60 max-w-lg mx-auto">
+          <p className="font-assistant text-base md:text-lg text-concrete/70 text-pretty max-w-xl mx-auto">
             כל מוצר יכול להיות מותאם לגודל, לחומר ולגימור שאתם רוצים. פנו אלינו ישירות ונבנה ביחד.
           </p>
           <a href="https://wa.me/972528448870" target="_blank" rel="noopener noreferrer"

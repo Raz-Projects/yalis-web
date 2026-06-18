@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --color-onyx:       #1C1917;
+    --color-onyx-dark:  #111009;
     --color-onyx-mid:   #252220;
     --color-onyx-light: #2F2C28;
     --color-steel:      #8B8680;
@@ -47,8 +48,16 @@
     color: var(--color-offwhite);
   }
   h1, h2, h3, h4 {
-    font-family: var(--font-cormorant), serif;
+    font-family: var(--font-cormorant), var(--font-frank-ruhl), serif;
+    line-height: 1.12;
+    /* Keeps multi-line headings from leaving orphan words on the last line */
+    text-wrap: balance;
   }
+  /* Hebrew text benefits from a touch more leading for legibility */
+  p { line-height: 1.75; }
+  /* Long centered copy reads better with balanced line lengths */
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
 }
 
 /* ─────────────────────────────────────────
@@ -98,52 +107,64 @@
 /* ─────────────────────────────────────────
    BUTTON STYLES
 ───────────────────────────────────────── */
+/* Hebrew labels read poorly when heavily tracked, so buttons use a gentle
+   letter-spacing that still feels refined on the occasional Latin word. */
 .btn-ys-solid {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 14px 40px;
-  background: var(--color-steel);
+  background: var(--color-concrete);
   color: var(--color-onyx);
   font-family: var(--font-assistant), sans-serif;
   font-size: 0.85rem;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: opacity 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
   cursor: pointer;
 }
-.btn-ys-solid:hover { opacity: 0.85; }
+.btn-ys-solid:hover { background: #ffffff; }
 
 .btn-ys-outline {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 14px 40px;
-  border: 1px solid var(--color-steel);
-  color: var(--color-steel);
+  border: 1px solid rgba(228, 224, 219, 0.5);
+  color: var(--color-concrete);
   font-family: var(--font-assistant), sans-serif;
   font-size: 0.85rem;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
 }
 .btn-ys-outline:hover {
-  background: var(--color-steel);
+  background: var(--color-concrete);
   color: var(--color-onyx);
+  border-color: var(--color-concrete);
 }
 
 .btn-ys-ghost {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 14px 40px;
-  border: 1px solid rgba(242, 241, 238, 0.3);
-  color: var(--color-offwhite);
+  border: 1px solid rgba(242, 241, 238, 0.25);
+  color: var(--color-concrete);
   font-family: var(--font-assistant), sans-serif;
   font-size: 0.85rem;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: border-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
 }
 .btn-ys-ghost:hover {
-  border-color: var(--color-steel);
-  color: var(--color-steel);
+  border-color: var(--color-concrete);
+  color: #ffffff;
 }
 
 /* ─────────────────────────────────────────
@@ -151,8 +172,10 @@
 ───────────────────────────────────────── */
 .label-ys {
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.28em;
+  font-size: 0.78rem;
+  font-weight: 500;
+  /* Hebrew reads poorly when over-tracked; keep it gentle */
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.9;
 }
@@ -258,14 +281,128 @@
    PROMO BAR
 ───────────────────────────────────────── */
 .promo-bar {
-  background: var(--color-steel);
-  color: var(--color-onyx);
+  background: var(--color-onyx-dark, #111009);
+  color: var(--color-steel-light);
   text-align: center;
-  padding: 10px 16px;
+  padding: 9px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.82rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+@media (min-width: 640px) {
+  .promo-bar { font-size: 0.78rem; letter-spacing: 0.16em; }
+}
+
+/* ─────────────────────────────────────────
+   ACCESSIBILITY MODES  (toggled on <html> by the a11y widget)
+───────────────────────────────────────── */
+
+/* Stop animations & smooth scroll */
+html.a11y-no-motion *,
+html.a11y-no-motion *::before,
+html.a11y-no-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Monochrome */
+html.a11y-grayscale {
+  filter: grayscale(100%);
+}
+
+/* Emphasise every link */
+html.a11y-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  outline: 1px dashed currentColor;
+  outline-offset: 2px;
+}
+
+/* Highly legible font + roomier spacing */
+html.a11y-readable body,
+html.a11y-readable body * {
+  font-family: Arial, "Assistant", system-ui, sans-serif !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.9 !important;
+  font-style: normal !important;
+}
+
+/* Larger cursor */
+html.a11y-big-cursor,
+html.a11y-big-cursor * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white' stroke='black' stroke-width='1.2'%3E%3Cpath d='M4 2 L4 22 L9 17 L12.5 23.5 L15.5 22 L12 15.5 L19 15.5 Z'/%3E%3C/svg%3E") 4 2, auto !important;
+}
+
+/* High contrast — pure black background, white text, yellow links */
+html.a11y-contrast body {
+  background: #000 !important;
+}
+html.a11y-contrast body,
+html.a11y-contrast body *:not(svg):not(path) {
+  color: #fff !important;
+  border-color: #fff !important;
+  text-shadow: none !important;
+}
+html.a11y-contrast [class*="bg-onyx"],
+html.a11y-contrast [class*="bg-white"],
+html.a11y-contrast [class*="bg-black"] {
+  background-color: #000 !important;
+}
+/* Light "active/selected" surfaces invert to white-on-black for legibility */
+html.a11y-contrast [class*="bg-concrete"] {
+  background-color: #fff !important;
+}
+html.a11y-contrast [class*="bg-concrete"],
+html.a11y-contrast [class*="bg-concrete"] *:not(svg):not(path) {
+  color: #000 !important;
+}
+html.a11y-contrast a,
+html.a11y-contrast a * {
+  color: #ff0 !important;
+}
+html.a11y-contrast .btn-ys-solid,
+html.a11y-contrast .btn-ys-outline,
+html.a11y-contrast .btn-ys-ghost {
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+html.a11y-contrast .badge-collection,
+html.a11y-contrast .promo-bar {
+  background: #000 !important;
+  border: 1px solid #fff !important;
+}
+
+/* Accessibility panel backdrop — kept translucent (not a bg-* utility) so the
+   high-contrast rule can't force it opaque; lets the page preview behind it. */
+.a11y-overlay {
+  background-color: rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Visually-hidden until focused — skip-to-content link */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 300;
+  transform: translateY(-150%);
+  background: var(--color-concrete);
+  color: var(--color-onyx);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--color-onyx);
 }
 
 /* ─────────────────────────────────────────
@@ -273,11 +410,17 @@
 ───────────────────────────────────────── */
 .badge-collection {
   display: inline-block;
-  padding: 4px 10px;
-  border: 1px solid rgba(139,134,128,0.4);
+  padding: 5px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  /* Dark translucent chip keeps the label legible over light OR dark photos */
+  background: rgba(17, 16, 9, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-steel);
+  color: var(--color-concrete);
 }

@@ -55,7 +55,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           <h3 className="font-assistant text-sm font-medium text-concrete leading-snug line-clamp-2">
             {product.nameHe}
           </h3>
-          <p className="font-cormorant text-base text-steel">
+          <p className="font-cormorant text-lg text-steel-light">
             {product.priceFrom > 0 ? `החל מ-${formatPrice(product.priceFrom)}` : "מחיר לפי פנייה"}
           </p>
         </div>
