@@ -45,12 +45,12 @@ function ProductsContent() {
       <Navbar />
       <FloatingWhatsApp />
 
-      <div className="pt-32 pb-20 px-6 min-h-screen">
+      <div id="main-content" tabIndex={-1} className="pt-32 md:pt-40 pb-24 px-6 min-h-screen focus:outline-none">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-12">
-            <p className="label-ys text-steel mb-3">YALIS</p>
-            <h1 className="font-cormorant text-5xl font-light text-concrete">המוצרים שלנו</h1>
+            <p className="label-ys text-steel-light mb-3">YALIS</p>
+            <h1 className="font-cormorant text-5xl md:text-6xl font-light text-concrete">המוצרים שלנו</h1>
           </div>
 
           {/* Filters */}
@@ -63,7 +63,7 @@ function ProductsContent() {
                   onClick={() => setActiveCollection(c.value)}
                   className={`px-5 py-2 rounded-full text-sm font-assistant font-medium transition-all border ${
                     activeCollection === c.value
-                      ? "bg-steel text-black border-steel"
+                      ? "bg-concrete text-onyx border-concrete"
                       : "border-white/20 text-concrete/60 hover:border-white/40 hover:text-concrete"
                   }`}
                 >
@@ -81,7 +81,7 @@ function ProductsContent() {
                   className={`px-4 py-1.5 rounded-full text-xs font-assistant transition-all border ${
                     activeCategory === c.value
                       ? "border-concrete/60 text-concrete"
-                      : "border-white/10 text-concrete/40 hover:border-white/20 hover:text-concrete/60"
+                      : "border-white/10 text-concrete/50 hover:border-white/25 hover:text-concrete/80"
                   }`}
                 >
                   {c.label}
@@ -89,14 +89,14 @@ function ProductsContent() {
               ))}
             </div>
 
-            <p className="font-assistant text-xs text-concrete/30">
+            <p className="font-assistant text-xs text-concrete/50">
               {filtered.length} מוצרים
             </p>
           </div>
 
           {/* Grid */}
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-8 sm:gap-8">
               {filtered.map((product, i) => (
                 <ProductCard key={product.slug} product={product} priority={i < 4} />
               ))}

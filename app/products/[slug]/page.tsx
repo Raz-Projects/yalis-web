@@ -33,10 +33,10 @@ export default async function ProductPage({ params }: Props) {
       <Navbar />
       <FloatingWhatsApp />
 
-      <div className="pt-28 pb-20 px-6">
+      <div id="main-content" tabIndex={-1} className="pt-28 pb-20 px-6 focus:outline-none">
         <div className="max-w-7xl mx-auto">
           {/* Breadcrumb */}
-          <nav className="mb-8 flex items-center gap-2 font-assistant text-xs text-concrete/40">
+          <nav className="mb-8 flex items-center gap-2 font-assistant text-xs text-concrete/50">
             <Link href="/" className="hover:text-concrete/70 transition-colors">בית</Link>
             <span>/</span>
             <Link href="/products" className="hover:text-concrete/70 transition-colors">מוצרים</Link>
@@ -87,30 +87,30 @@ export default async function ProductPage({ params }: Props) {
               <div>
                 <div className="flex items-center gap-3 mb-3">
                   <span className="badge-collection">{product.collection} Steel</span>
-                  <span className="label-ys text-concrete/40">{product.categoryHe}</span>
+                  <span className="label-ys text-concrete/55">{product.categoryHe}</span>
                 </div>
                 <h1 className="font-cormorant text-3xl md:text-4xl font-light text-concrete leading-snug mb-2">
                   {product.nameHe}
                 </h1>
-                <p className="font-assistant text-sm text-steel italic">{product.taglineHe}</p>
+                <p className="font-assistant text-sm text-steel-light italic">{product.taglineHe}</p>
               </div>
 
               <div className="ys-divider" />
 
               {/* Price */}
               <div>
-                <p className="label-ys text-concrete/40 mb-1">מחיר</p>
-                <p className="font-cormorant text-3xl text-steel">
+                <p className="label-ys text-concrete/55 mb-1">מחיר</p>
+                <p className="font-cormorant text-4xl text-concrete">
                   {product.priceFrom > 0 ? `החל מ-${formatPrice(product.priceFrom)}` : "מחיר לפי פנייה"}
                 </p>
-                <p className="font-assistant text-xs text-concrete/40 mt-1">
+                <p className="font-assistant text-xs text-concrete/50 mt-1">
                   המחיר הסופי נקבע לפי מידות ומפרט מדויקים
                 </p>
               </div>
 
               {/* Description */}
               <div>
-                <p className="label-ys text-concrete/40 mb-2">תיאור</p>
+                <p className="label-ys text-concrete/55 mb-2">תיאור</p>
                 <p className="font-assistant text-sm text-concrete/70 leading-relaxed">
                   {product.descriptionHe}
                 </p>
@@ -119,11 +119,11 @@ export default async function ProductPage({ params }: Props) {
               {/* Specs */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white/5 rounded-xl p-4">
-                  <p className="label-ys text-concrete/40 mb-2">חומר</p>
+                  <p className="label-ys text-concrete/55 mb-2">חומר</p>
                   <p className="font-assistant text-sm text-concrete">{product.material}</p>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4">
-                  <p className="label-ys text-concrete/40 mb-2">מידות (ס"מ)</p>
+                  <p className="label-ys text-concrete/55 mb-2">מידות (ס"מ)</p>
                   <div className="font-assistant text-sm text-concrete space-y-0.5">
                     {width && <p>רוחב: {width}</p>}
                     {depth && <p>עומק: {depth}</p>}
@@ -160,7 +160,7 @@ export default async function ProductPage({ params }: Props) {
           {related.length > 0 && (
             <div className="mt-24">
               <div className="mb-10">
-                <p className="label-ys text-steel mb-3">אולי גם יעניין אותך</p>
+                <p className="label-ys text-steel-light mb-3">אולי גם יעניין אותך</p>
                 <h2 className="font-cormorant text-3xl font-light text-concrete">מוצרים קשורים</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

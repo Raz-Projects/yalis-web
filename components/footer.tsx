@@ -5,18 +5,18 @@ const WHATSAPP = "972528448870"
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black mt-24">
+    <footer className="border-t border-white/10 bg-onyx-dark mt-24">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Brand */}
         <div className="space-y-4">
           <Image
             src="/logo.jpeg"
             alt="YALIS"
-            width={80}
-            height={32}
-            className="h-8 w-auto brightness-0 invert"
+            width={120}
+            height={48}
+            className="h-9 w-auto object-contain invert mix-blend-screen"
           />
-          <p className="font-assistant text-sm text-concrete/50 leading-relaxed max-w-xs">
+          <p className="font-assistant text-sm text-concrete/60 leading-relaxed max-w-xs">
             ריהוט מנירוסטה ועץ בעבודת יד. עיצוב תעשייתי יוקרתי, ייצור ישראלי.
           </p>
         </div>
@@ -34,7 +34,7 @@ export function Footer() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="font-assistant text-sm text-concrete/50 hover:text-concrete transition-colors"
+                  className="font-assistant text-sm text-concrete/60 hover:text-concrete transition-colors"
                 >
                   {l.label}
                 </Link>
@@ -51,25 +51,31 @@ export function Footer() {
               href={`https://wa.me/${WHATSAPP}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 font-assistant text-sm text-concrete/50 hover:text-steel transition-colors"
+              className="flex items-center gap-2 font-assistant text-sm text-concrete/60 hover:text-steel transition-colors"
             >
               <WhatsAppIcon />
               WhatsApp
             </a>
-            <p className="font-assistant text-sm text-concrete/50">ייצור ישראלי · עבודת יד</p>
-            <p className="font-assistant text-sm text-concrete/50">התאמה אישית לכל מוצר</p>
+            <p className="font-assistant text-sm text-concrete/60">ייצור ישראלי · עבודת יד</p>
+            <p className="font-assistant text-sm text-concrete/60">התאמה אישית לכל מוצר</p>
           </div>
         </div>
       </div>
 
       <div className="border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-2">
-          <p className="font-assistant text-xs text-concrete/30">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
+          <p className="font-assistant text-xs text-concrete/45">
             © {new Date().getFullYear()} YALIS. כל הזכויות שמורות.
           </p>
-          <p className="font-assistant text-xs text-concrete/20">
-            עיצוב ופיתוח בישראל
-          </p>
+          <div className="flex items-center gap-4 font-assistant text-xs">
+            <Link href="/privacy" className="text-concrete/55 hover:text-concrete transition-colors">
+              מדיניות פרטיות
+            </Link>
+            <span className="text-concrete/20">·</span>
+            <Link href="/accessibility" className="text-concrete/55 hover:text-concrete transition-colors">
+              הצהרת נגישות
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

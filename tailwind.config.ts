@@ -10,6 +10,13 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // Latin display falls back to the Hebrew serif per-glyph, so mixed
+        // Hebrew/English headings stay visually consistent.
+        cormorant: ["var(--font-cormorant)", "var(--font-frank-ruhl)", "serif"],
+        assistant: ["var(--font-assistant)", "sans-serif"],
+        hebrew: ["var(--font-frank-ruhl)", "serif"],
+      },
       colors: {
         onyx: {
           DEFAULT: "#1C1917",
