@@ -11,8 +11,6 @@ const WHATSAPP = "972528448870"
 export function StickyCart() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, total, clearCart } = useCart()
 
-  if (!isOpen) return null
-
   const waMessage = encodeURIComponent(
     "שלום, אני מעוניין/ת לבצע הזמנה:\n" +
     items.map(i => `• ${i.product.nameHe} × ${i.quantity}${i.note ? ` (${i.note})` : ""}`).join("\n") +
@@ -22,8 +20,19 @@ export function StickyCart() {
 
   return (
     <>
-      <div className="cart-overlay" onClick={closeCart} />
-      <aside className="cart-panel">
+      <div
+        className={`cart-overlay ${isOpen ? "open" : ""}`}
+        onClick={closeCart}
+        aria-hidden="true"
+      />
+      <aside
+        className={`cart-panel ${isOpen ? "open" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="עגלת הקניות"
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+      >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
           <h2 className="font-cormorant text-xl font-medium text-concrete">עגלת הקניות</h2>
