@@ -67,14 +67,14 @@ export function Footer() {
           <p className="font-assistant text-xs text-concrete/45">
             © {new Date().getFullYear()} YALIS. כל הזכויות שמורות.
           </p>
-          <div className="flex items-center gap-4 font-assistant text-xs">
-            <Link href="/privacy" className="text-concrete/55 hover:text-concrete transition-colors">
-              מדיניות פרטיות
-            </Link>
+          <div className="flex flex-wrap items-center gap-4 font-assistant text-xs justify-center md:justify-end">
+            <Link href="/terms" className="text-concrete/55 hover:text-concrete transition-colors">תקנון</Link>
             <span className="text-concrete/20">·</span>
-            <Link href="/accessibility" className="text-concrete/55 hover:text-concrete transition-colors">
-              הצהרת נגישות
-            </Link>
+            <Link href="/shipping" className="text-concrete/55 hover:text-concrete transition-colors">משלוחים וביטולים</Link>
+            <span className="text-concrete/20">·</span>
+            <Link href="/privacy" className="text-concrete/55 hover:text-concrete transition-colors">פרטיות</Link>
+            <span className="text-concrete/20">·</span>
+            <Link href="/accessibility" className="text-concrete/55 hover:text-concrete transition-colors">נגישות</Link>
           </div>
         </div>
       </div>
