@@ -53,7 +53,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: A11Y_BOOT }} />
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem={false}
           disableTransitionOnChange
         >

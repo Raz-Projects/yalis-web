@@ -2,263 +2,260 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — LIGHT / PREMIUM
+═══════════════════════════════════════════ */
 @layer base {
   :root {
-    --color-onyx:       #1C1917;
-    --color-onyx-dark:  #111009;
-    --color-onyx-mid:   #252220;
-    --color-onyx-light: #2F2C28;
-    --color-steel:      #8B8680;
-    --color-steel-light:#A8A4A0;
-    --color-concrete:   #E4E0DB;
-    --color-offwhite:   #F0EDE9;
+    --pearl:          #F8F7F4;
+    --pearl-warm:     #F1EFEB;
+    --pearl-muted:    #EAE7E1;
+    --ink:            #0C0B09;
+    --ink-mid:        #3A3733;
+    --ink-soft:       #76716A;
+    --ink-subtle:     #9E9B96;
+    --wire:           #E3DFD9;
+    --wire-strong:    #C9C5BF;
+    --iron:           #9A9590;
+    --iron-light:     #B6B2AC;
 
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    /* shadcn CSS vars */
+    --background: 38 14% 97%;
+    --foreground: 30 7% 6%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 30 7% 6%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 30 7% 6%;
+    --primary: 30 7% 6%;
+    --primary-foreground: 38 14% 97%;
+    --secondary: 35 10% 91%;
+    --secondary-foreground: 30 7% 6%;
+    --muted: 35 10% 93%;
+    --muted-foreground: 30 5% 44%;
+    --accent: 35 10% 91%;
+    --accent-foreground: 30 7% 6%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --radius: 0.5rem;
+    --border: 35 10% 88%;
+    --input: 35 10% 88%;
+    --ring: 30 7% 6%;
+    --radius: 0px;
   }
 }
 
+/* ═══════════════════════════════════════════
+   BASE RESET
+═══════════════════════════════════════════ */
 @layer base {
   * { @apply border-border; }
+
   html {
     scroll-behavior: smooth;
-    font-size: 17px;
+    font-size: 16px;
   }
+
   body {
-    font-family: var(--font-assistant), sans-serif;
-    background-color: var(--color-onyx);
-    color: var(--color-offwhite);
+    font-family: var(--font-assistant), "Assistant", sans-serif;
+    background-color: var(--pearl);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
   h1, h2, h3, h4 {
-    font-family: var(--font-cormorant), var(--font-frank-ruhl), serif;
-    line-height: 1.12;
-    /* Keeps multi-line headings from leaving orphan words on the last line */
+    font-family: var(--font-cormorant), var(--font-frank-ruhl), "Cormorant Garamond", serif;
+    line-height: 1.06;
     text-wrap: balance;
+    color: var(--ink);
+    font-weight: 300;
   }
-  /* Hebrew text benefits from a touch more leading for legibility */
-  p { line-height: 1.75; }
-  /* Long centered copy reads better with balanced line lengths */
+
+  p { line-height: 1.72; }
   .text-balance { text-wrap: balance; }
-  .text-pretty { text-wrap: pretty; }
+  .text-pretty  { text-wrap: pretty; }
 }
 
-/* ─────────────────────────────────────────
-   GRAIN TEXTURE
-───────────────────────────────────────── */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 128px 128px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ─────────────────────────────────────────
-   IMAGE HOVER ZOOM
-───────────────────────────────────────── */
-.img-zoom { overflow: hidden; }
-.img-zoom img,
-.img-zoom .next-image-wrapper {
-  transition: transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.img-zoom:hover img,
-.img-zoom:hover .next-image-wrapper {
-  transform: scale(1.05);
-}
-
-/* ─────────────────────────────────────────
-   STEEL DIVIDER
-───────────────────────────────────────── */
-.ys-divider {
-  width: 48px;
-  height: 1px;
-  background: var(--color-steel);
-  opacity: 0.5;
-  margin: 0 auto;
-}
-.ys-divider-full {
-  width: 100%;
-  height: 1px;
-  background: var(--color-steel);
-  opacity: 0.15;
-}
-
-/* ─────────────────────────────────────────
-   BUTTON STYLES
-───────────────────────────────────────── */
-/* Hebrew labels read poorly when heavily tracked, so buttons use a gentle
-   letter-spacing that still feels refined on the occasional Latin word. */
+/* ═══════════════════════════════════════════
+   BUTTONS — minimal / architectural
+═══════════════════════════════════════════ */
 .btn-ys-solid {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 40px;
-  background: var(--color-concrete);
-  color: var(--color-onyx);
+  padding: 13px 36px;
+  background: var(--ink);
+  color: var(--pearl);
+  border: 1px solid var(--ink);
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.2s ease, color 0.2s ease;
   cursor: pointer;
+  white-space: nowrap;
 }
-.btn-ys-solid:hover { background: #ffffff; }
+.btn-ys-solid:hover {
+  background: var(--ink-mid);
+  border-color: var(--ink-mid);
+}
 
 .btn-ys-outline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 40px;
-  border: 1px solid rgba(228, 224, 219, 0.5);
-  color: var(--color-concrete);
+  padding: 13px 36px;
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: background 0.2s ease, color 0.2s ease;
   cursor: pointer;
+  white-space: nowrap;
 }
 .btn-ys-outline:hover {
-  background: var(--color-concrete);
-  color: var(--color-onyx);
-  border-color: var(--color-concrete);
+  background: var(--ink);
+  color: var(--pearl);
 }
 
 .btn-ys-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 40px;
-  border: 1px solid rgba(242, 241, 238, 0.25);
-  color: var(--color-concrete);
+  padding: 13px 36px;
+  background: transparent;
+  border: 1px solid var(--wire-strong);
+  color: var(--ink-soft);
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: border-color 0.3s ease, color 0.3s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
   cursor: pointer;
+  white-space: nowrap;
 }
 .btn-ys-ghost:hover {
-  border-color: var(--color-concrete);
-  color: #ffffff;
+  border-color: var(--ink);
+  color: var(--ink);
 }
 
-/* ─────────────────────────────────────────
-   LABEL / EYEBROW TEXT
-───────────────────────────────────────── */
+/* ═══════════════════════════════════════════
+   LABEL / EYEBROW
+═══════════════════════════════════════════ */
 .label-ys {
   font-family: var(--font-assistant), sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 500;
-  /* Hebrew reads poorly when over-tracked; keep it gentle */
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  opacity: 0.9;
+  color: var(--ink-subtle);
 }
 
-/* ─────────────────────────────────────────
-   GOLD UNDERLINE HOVER
-───────────────────────────────────────── */
-.steel-underline {
-  position: relative;
+/* ═══════════════════════════════════════════
+   DIVIDERS
+═══════════════════════════════════════════ */
+.ys-divider {
+  width: 36px;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.2;
 }
+.ys-divider-full {
+  width: 100%;
+  height: 1px;
+  background: var(--wire);
+}
+
+/* ═══════════════════════════════════════════
+   LINK UNDERLINE
+═══════════════════════════════════════════ */
+.steel-underline { position: relative; }
 .steel-underline::after {
   content: "";
   position: absolute;
-  bottom: -2px;
+  bottom: -1px;
   right: 0;
   width: 0;
   height: 1px;
-  background: var(--color-steel);
-  transition: width 0.3s ease;
+  background: var(--ink);
+  transition: width 0.28s ease;
 }
 .steel-underline:hover::after { width: 100%; }
 
-/* ─────────────────────────────────────────
-   ANIMATIONS
-───────────────────────────────────────── */
-@keyframes revealUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0);    }
+/* ═══════════════════════════════════════════
+   IMAGE ZOOM
+═══════════════════════════════════════════ */
+.img-zoom { overflow: hidden; }
+.img-zoom img,
+.img-zoom [data-next-image-wrapper] {
+  transition: transform 650ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-@keyframes revealIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes scrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0);   }
-  50%       { transform: translateX(-50%) translateY(8px); }
+.img-zoom:hover img,
+.img-zoom:hover [data-next-image-wrapper] {
+  transform: scale(1.05);
 }
 
-.animate-fade-up {
-  animation: revealUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  opacity: 0;
-}
-.animate-fade-in {
-  animation: revealIn 1s ease forwards;
-  opacity: 0;
-}
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-.animate-scroll-bounce {
-  transform: translateX(-50%);
-  animation: scrollBounce 2.5s ease-in-out infinite;
-}
-
-/* ─────────────────────────────────────────
+/* ═══════════════════════════════════════════
    PRODUCT CARD
-───────────────────────────────────────── */
+═══════════════════════════════════════════ */
 .product-card {
-  background: var(--color-onyx-mid);
-  border: 1px solid rgba(139, 134, 128, 0.12);
-  transition: border-color 0.4s ease, transform 0.4s ease;
+  background: transparent;
   cursor: pointer;
 }
-.product-card:hover {
-  border-color: rgba(139, 134, 128, 0.35);
-  transform: translateY(-2px);
+
+/* ═══════════════════════════════════════════
+   BADGE
+═══════════════════════════════════════════ */
+.badge-collection {
+  display: inline-block;
+  padding: 3px 9px;
+  border: 1px solid var(--wire-strong);
+  background: rgba(248, 247, 244, 0.85);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.60rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
-/* ─────────────────────────────────────────
-   STICKY CART
-───────────────────────────────────────── */
+/* ═══════════════════════════════════════════
+   PROMO BAR
+═══════════════════════════════════════════ */
+.promo-bar {
+  background: var(--ink);
+  color: var(--iron-light);
+  text-align: center;
+  padding: 8px 40px;
+  font-family: var(--font-assistant), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+}
+@media (min-width: 640px) {
+  .promo-bar { font-size: 0.70rem; }
+}
+
+/* ═══════════════════════════════════════════
+   CART PANEL
+═══════════════════════════════════════════ */
 .cart-panel {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: min(420px, 100vw);
-  background: var(--color-onyx-mid);
-  border-right: 1px solid rgba(139,134,128,0.2);
+  width: min(440px, 100vw);
+  background: var(--pearl);
+  border-right: 1px solid var(--wire);
   z-index: 200;
-  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
   transform: translateX(-100%);
   overflow-y: auto;
 }
@@ -266,135 +263,26 @@
 .cart-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(12, 11, 9, 0.22);
   z-index: 199;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.38s ease;
 }
-.cart-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
+.cart-overlay.open { opacity: 1; pointer-events: auto; }
 
-/* ─────────────────────────────────────────
-   PROMO BAR
-───────────────────────────────────────── */
-.promo-bar {
-  background: var(--color-onyx-dark, #111009);
-  color: var(--color-steel-light);
-  text-align: center;
-  padding: 9px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  font-family: var(--font-assistant), sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-@media (min-width: 640px) {
-  .promo-bar { font-size: 0.78rem; letter-spacing: 0.16em; }
-}
-
-/* ─────────────────────────────────────────
-   ACCESSIBILITY MODES  (toggled on <html> by the a11y widget)
-───────────────────────────────────────── */
-
-/* Stop animations & smooth scroll */
-html.a11y-no-motion *,
-html.a11y-no-motion *::before,
-html.a11y-no-motion *::after {
-  animation-duration: 0.001ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.001ms !important;
-  scroll-behavior: auto !important;
-}
-
-/* Monochrome */
-html.a11y-grayscale {
-  filter: grayscale(100%);
-}
-
-/* Emphasise every link */
-html.a11y-links a {
-  text-decoration: underline !important;
-  text-underline-offset: 3px;
-  outline: 1px dashed currentColor;
-  outline-offset: 2px;
-}
-
-/* Highly legible font + roomier spacing */
-html.a11y-readable body,
-html.a11y-readable body * {
-  font-family: Arial, "Assistant", system-ui, sans-serif !important;
-  letter-spacing: 0.02em !important;
-  line-height: 1.9 !important;
-  font-style: normal !important;
-}
-
-/* Larger cursor */
-html.a11y-big-cursor,
-html.a11y-big-cursor * {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white' stroke='black' stroke-width='1.2'%3E%3Cpath d='M4 2 L4 22 L9 17 L12.5 23.5 L15.5 22 L12 15.5 L19 15.5 Z'/%3E%3C/svg%3E") 4 2, auto !important;
-}
-
-/* High contrast — pure black background, white text, yellow links */
-html.a11y-contrast body {
-  background: #000 !important;
-}
-html.a11y-contrast body,
-html.a11y-contrast body *:not(svg):not(path) {
-  color: #fff !important;
-  border-color: #fff !important;
-  text-shadow: none !important;
-}
-html.a11y-contrast [class*="bg-onyx"],
-html.a11y-contrast [class*="bg-white"],
-html.a11y-contrast [class*="bg-black"] {
-  background-color: #000 !important;
-}
-/* Light "active/selected" surfaces invert to white-on-black for legibility */
-html.a11y-contrast [class*="bg-concrete"] {
-  background-color: #fff !important;
-}
-html.a11y-contrast [class*="bg-concrete"],
-html.a11y-contrast [class*="bg-concrete"] *:not(svg):not(path) {
-  color: #000 !important;
-}
-html.a11y-contrast a,
-html.a11y-contrast a * {
-  color: #ff0 !important;
-}
-html.a11y-contrast .btn-ys-solid,
-html.a11y-contrast .btn-ys-outline,
-html.a11y-contrast .btn-ys-ghost {
-  background: #000 !important;
-  color: #fff !important;
-  border: 1px solid #fff !important;
-}
-html.a11y-contrast .badge-collection,
-html.a11y-contrast .promo-bar {
-  background: #000 !important;
-  border: 1px solid #fff !important;
-}
-
-/* Accessibility panel backdrop — kept translucent (not a bg-* utility) so the
-   high-contrast rule can't force it opaque; lets the page preview behind it. */
-.a11y-overlay {
-  background-color: rgba(0, 0, 0, 0.45) !important;
-}
-
-/* Visually-hidden until focused — skip-to-content link */
+/* ═══════════════════════════════════════════
+   SKIP LINK (a11y)
+═══════════════════════════════════════════ */
 .skip-link {
   position: fixed;
   top: 8px;
   right: 8px;
   z-index: 300;
   transform: translateY(-150%);
-  background: var(--color-concrete);
-  color: var(--color-onyx);
+  background: var(--ink);
+  color: var(--pearl);
   padding: 10px 18px;
-  border-radius: 8px;
   font-family: var(--font-assistant), sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
@@ -402,25 +290,80 @@ html.a11y-contrast .promo-bar {
 }
 .skip-link:focus {
   transform: translateY(0);
-  outline: 2px solid var(--color-onyx);
+  outline: 2px solid var(--iron);
 }
 
-/* ─────────────────────────────────────────
-   COLLECTION BADGE
-───────────────────────────────────────── */
-.badge-collection {
-  display: inline-block;
-  padding: 5px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 4px;
-  /* Dark translucent chip keeps the label legible over light OR dark photos */
-  background: rgba(17, 16, 9, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-family: var(--font-assistant), sans-serif;
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-concrete);
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════ */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes revealIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-up {
+  animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+.animate-fade-in {
+  animation: revealIn 0.9s ease forwards;
+  opacity: 0;
+}
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
+.delay-500 { animation-delay: 0.50s; }
+
+/* ═══════════════════════════════════════════
+   ACCESSIBILITY MODES
+═══════════════════════════════════════════ */
+html.a11y-no-motion *,
+html.a11y-no-motion *::before,
+html.a11y-no-motion *::after {
+  animation-duration:       0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration:      0.001ms !important;
+  scroll-behavior: auto !important;
+}
+html.a11y-grayscale { filter: grayscale(100%); }
+html.a11y-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  outline: 1px dashed currentColor;
+  outline-offset: 2px;
+}
+html.a11y-readable body,
+html.a11y-readable body * {
+  font-family: Arial, "Assistant", system-ui, sans-serif !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.9 !important;
+  font-style: normal !important;
+}
+html.a11y-big-cursor,
+html.a11y-big-cursor * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='black' stroke='white' stroke-width='1.2'%3E%3Cpath d='M4 2 L4 22 L9 17 L12.5 23.5 L15.5 22 L12 15.5 L19 15.5 Z'/%3E%3C/svg%3E") 4 2, auto !important;
+}
+html.a11y-contrast body { background: #000 !important; }
+html.a11y-contrast body,
+html.a11y-contrast body *:not(svg):not(path) {
+  color: #fff !important;
+  border-color: #fff !important;
+  text-shadow: none !important;
+}
+html.a11y-contrast [class*="bg-pearl"],
+html.a11y-contrast [class*="bg-white"] { background-color: #000 !important; }
+html.a11y-contrast a,
+html.a11y-contrast a * { color: #ff0 !important; }
+html.a11y-contrast .btn-ys-solid,
+html.a11y-contrast .btn-ys-outline,
+html.a11y-contrast .btn-ys-ghost {
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+html.a11y-contrast .promo-bar { background: #000 !important; border: 1px solid #fff !important; }
+.a11y-overlay { background-color: rgba(0,0,0,0.45) !important; }

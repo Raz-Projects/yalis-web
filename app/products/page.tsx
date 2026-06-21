@@ -2,6 +2,7 @@
 
 import { useState, useMemo, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
+import NextLink from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
@@ -16,45 +17,38 @@ const collectionFilters = [
 ]
 
 const categoryFilters = [
-  { value: "all",         label: "כל הקטגוריות" },
-  { value: "chairs",      label: "כיסאות" },
-  { value: "tables",      label: "שולחנות" },
-  { value: "side-tables", label: "שולחנות צד" },
-  { value: "shelving",    label: "מדפים ואחסון" },
-  { value: "lighting",    label: "תאורה" },
-  { value: "kitchen",     label: "מטבח" },
+  { value: "all",           label: "All categories" },
+  { value: "chairs",        label: "Seating" },
+  { value: "tables",        label: "Tables" },
+  { value: "side-tables",   label: "Side Tables" },
+  { value: "shelving",      label: "Shelving" },
+  { value: "lighting",      label: "Lighting" },
+  { value: "kitchen",       label: "Kitchen" },
 ]
 
 const priceFilters = [
-  { value: "all",  label: "כל המחירים" },
-  { value: "low",  label: "עד ₪1,000" },
-  { value: "mid",  label: "₪1,000 – ₪2,000" },
-  { value: "high", label: "מעל ₪2,000" },
+  { value: "all",   label: "All prices" },
+  { value: "low",   label: "Up to ₪1,000" },
+  { value: "mid",   label: "₪1,000 – ₪2,000" },
+  { value: "high",  label: "₪2,000+" },
 ]
 
 const sortOptions = [
-  { value: "default",    label: "מומלץ" },
-  { value: "price-asc",  label: "מחיר: נמוך לגבוה" },
-  { value: "price-desc", label: "מחיר: גבוה לנמוך" },
-  { value: "name",       label: "לפי שם" },
+  { value: "default",    label: "Featured" },
+  { value: "price-asc",  label: "Price: low → high" },
+  { value: "price-desc", label: "Price: high → low" },
 ]
 
-function Chip({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean
-  onClick: () => void
-  children: React.ReactNode
-}) {
+function Pill({
+  active, onClick, children,
+}: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-1.5 rounded-full text-xs font-assistant transition-all border whitespace-nowrap ${
+      className={`px-3.5 py-1.5 text-[0.68rem] font-assistant font-medium tracking-[0.12em] uppercase transition-all whitespace-nowrap border ${
         active
-          ? "bg-concrete text-onyx border-concrete font-medium"
-          : "border-white/15 text-concrete/55 hover:border-white/35 hover:text-concrete/80"
+          ? "bg-ink text-pearl border-ink"
+          : "bg-transparent border-wire text-ink-soft hover:border-wire-strong hover:text-ink"
       }`}
     >
       {children}
@@ -85,167 +79,156 @@ function ProductsContent() {
     })
     if (sort === "price-asc")  list = [...list].sort((a, b) => a.priceFrom - b.priceFrom)
     if (sort === "price-desc") list = [...list].sort((a, b) => b.priceFrom - a.priceFrom)
-    if (sort === "name")       list = [...list].sort((a, b) => a.nameHe.localeCompare(b.nameHe, "he"))
     return list
   }, [collection, category, price, sort])
 
-  const reset = () => {
-    setCollection("all")
-    setCategory("all")
-    setPrice("all")
-  }
+  const reset = () => { setCollection("all"); setCategory("all"); setPrice("all") }
 
   return (
     <>
       <Navbar />
       <FloatingWhatsApp />
 
-      <div id="main-content" tabIndex={-1} className="pt-32 md:pt-40 pb-24 focus:outline-none">
+      <div id="main-content" tabIndex={-1} className="pt-28 md:pt-36 pb-24 focus:outline-none bg-pearl min-h-screen">
 
         {/* Page header */}
-        <div className="px-6 max-w-7xl mx-auto mb-10" dir="rtl">
-          <p className="label-ys text-steel-light mb-3">YALIS STUDIO</p>
-          <h1 className="font-cormorant text-5xl md:text-6xl font-light text-concrete">הקולקציה</h1>
-          <p className="font-assistant text-sm text-concrete/50 mt-3">
-            {filtered.length} פריטים · ריהוט אדריכלי מנירוסטה ועץ, ייצור ישראלי
-          </p>
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 mb-10">
+          <p className="label-ys text-ink-subtle mb-4">YALIS STUDIO</p>
+          <div className="flex items-end justify-between">
+            <h1 className="font-cormorant text-5xl md:text-6xl font-light text-ink">
+              The Collection
+            </h1>
+            <p className="hidden md:block font-assistant text-xs text-ink-subtle">
+              {filtered.length} pieces
+            </p>
+          </div>
+          <div className="ys-divider-full mt-6" />
         </div>
 
-        {/* Filters bar */}
-        <div className="px-6 max-w-7xl mx-auto mb-10">
+        {/* Filters */}
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 mb-10">
 
           {/* Desktop */}
-          <div className="hidden md:flex flex-wrap items-center gap-3" dir="rtl">
-            <div className="flex gap-2 border-r border-white/10 pl-3 ml-1">
+          <div className="hidden md:flex flex-wrap items-center gap-2.5">
+            <div className="flex gap-2 pr-4 border-r border-wire">
               {collectionFilters.map(f => (
-                <Chip key={f.value} active={collection === f.value} onClick={() => setCollection(f.value)}>
+                <Pill key={f.value} active={collection === f.value} onClick={() => setCollection(f.value)}>
                   {f.label}
-                </Chip>
+                </Pill>
               ))}
             </div>
-            <div className="flex flex-wrap gap-2 border-r border-white/10 pl-3 ml-1">
+            <div className="flex flex-wrap gap-2 pr-4 border-r border-wire">
               {categoryFilters.map(f => (
-                <Chip key={f.value} active={category === f.value} onClick={() => setCategory(f.value)}>
+                <Pill key={f.value} active={category === f.value} onClick={() => setCategory(f.value)}>
                   {f.label}
-                </Chip>
+                </Pill>
               ))}
             </div>
-            <div className="flex gap-2 border-r border-white/10 pl-3 ml-1">
+            <div className="flex gap-2">
               {priceFilters.map(f => (
-                <Chip key={f.value} active={price === f.value} onClick={() => setPrice(f.value)}>
+                <Pill key={f.value} active={price === f.value} onClick={() => setPrice(f.value)}>
                   {f.label}
-                </Chip>
+                </Pill>
               ))}
             </div>
-            <select
-              value={sort}
-              onChange={e => setSort(e.target.value)}
-              className="mr-auto bg-transparent border border-white/15 text-concrete/60 text-xs font-assistant rounded-full px-4 py-1.5 focus:outline-none focus:border-steel/40"
-              dir="rtl"
-            >
-              {sortOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
-            {activeCount > 0 && (
-              <button
-                onClick={reset}
-                className="flex items-center gap-1.5 text-xs font-assistant text-steel hover:text-concrete transition-colors"
+
+            <div className="ml-auto flex items-center gap-4">
+              <select
+                value={sort}
+                onChange={e => setSort(e.target.value)}
+                className="bg-transparent border border-wire text-ink-soft text-xs font-assistant px-3 py-1.5 focus:outline-none focus:border-ink-mid tracking-[0.06em]"
               >
-                <X size={12} />
-                נקה ({activeCount})
-              </button>
-            )}
+                {sortOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+              {activeCount > 0 && (
+                <button
+                  onClick={reset}
+                  className="flex items-center gap-1.5 text-xs font-assistant text-ink-soft hover:text-ink transition-colors tracking-[0.1em] uppercase"
+                >
+                  <X size={11} />
+                  Clear ({activeCount})
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Mobile */}
           <div className="md:hidden flex items-center justify-between">
             <button
               onClick={() => setMobileOpen(v => !v)}
-              className="flex items-center gap-2 text-sm font-assistant text-concrete/70 border border-white/15 rounded-full px-4 py-2"
+              className="flex items-center gap-2 text-xs font-assistant text-ink-soft border border-wire px-4 py-2 hover:border-ink-mid transition-colors"
             >
-              <SlidersHorizontal size={14} />
-              סינון {activeCount > 0 && `(${activeCount})`}
+              <SlidersHorizontal size={13} />
+              Filter {activeCount > 0 && `(${activeCount})`}
             </button>
-            <select
-              value={sort}
-              onChange={e => setSort(e.target.value)}
-              className="bg-transparent border border-white/15 text-concrete/60 text-xs font-assistant rounded-full px-3 py-2 focus:outline-none"
-              dir="rtl"
-            >
-              {sortOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
+            <p className="font-assistant text-xs text-ink-subtle">{filtered.length} pieces</p>
           </div>
 
           {mobileOpen && (
-            <div className="md:hidden mt-4 p-5 bg-onyx-dark border border-white/10 rounded-2xl space-y-5" dir="rtl">
+            <div className="md:hidden mt-4 p-5 bg-pearl-warm border border-wire space-y-5">
               <div className="space-y-2">
-                <p className="font-assistant text-xs text-steel">קולקציה</p>
+                <p className="label-ys text-ink-subtle">Collection</p>
                 <div className="flex flex-wrap gap-2">
-                  {collectionFilters.map(f => (
-                    <Chip key={f.value} active={collection === f.value} onClick={() => setCollection(f.value)}>
-                      {f.label}
-                    </Chip>
-                  ))}
+                  {collectionFilters.map(f => <Pill key={f.value} active={collection === f.value} onClick={() => setCollection(f.value)}>{f.label}</Pill>)}
                 </div>
               </div>
               <div className="space-y-2">
-                <p className="font-assistant text-xs text-steel">קטגוריה</p>
+                <p className="label-ys text-ink-subtle">Category</p>
                 <div className="flex flex-wrap gap-2">
-                  {categoryFilters.map(f => (
-                    <Chip key={f.value} active={category === f.value} onClick={() => setCategory(f.value)}>
-                      {f.label}
-                    </Chip>
-                  ))}
+                  {categoryFilters.map(f => <Pill key={f.value} active={category === f.value} onClick={() => setCategory(f.value)}>{f.label}</Pill>)}
                 </div>
               </div>
               <div className="space-y-2">
-                <p className="font-assistant text-xs text-steel">מחיר</p>
+                <p className="label-ys text-ink-subtle">Price</p>
                 <div className="flex flex-wrap gap-2">
-                  {priceFilters.map(f => (
-                    <Chip key={f.value} active={price === f.value} onClick={() => setPrice(f.value)}>
-                      {f.label}
-                    </Chip>
-                  ))}
+                  {priceFilters.map(f => <Pill key={f.value} active={price === f.value} onClick={() => setPrice(f.value)}>{f.label}</Pill>)}
                 </div>
               </div>
               {activeCount > 0 && (
-                <button onClick={reset} className="text-xs font-assistant text-steel underline">נקה הכל</button>
+                <button onClick={reset} className="text-xs font-assistant text-ink-soft underline">Clear all</button>
               )}
             </div>
           )}
         </div>
 
-        {/* Product grid */}
-        <div className="px-6 max-w-7xl mx-auto">
+        {/* Grid */}
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10">
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 md:gap-x-7 gap-y-14 md:gap-y-18">
               {filtered.map((product, i) => (
                 <ProductCard key={product.slug} product={product} priority={i < 4} />
               ))}
             </div>
           ) : (
             <div className="py-32 text-center space-y-4">
-              <p className="font-cormorant text-2xl text-concrete/40">לא נמצאו פריטים</p>
-              <button onClick={reset} className="btn-ys-ghost text-sm">הסר פילטרים</button>
+              <p className="font-cormorant text-2xl text-ink-subtle">No pieces match your selection</p>
+              <button onClick={reset} className="btn-ys-ghost text-sm">Clear filters</button>
             </div>
           )}
         </div>
 
         {/* Custom CTA */}
-        <div className="px-6 max-w-7xl mx-auto mt-20">
-          <div className="border border-white/10 rounded-2xl px-8 py-10 text-center space-y-4 bg-white/2" dir="rtl">
-            <p className="label-ys text-steel-light">לא מצאת מה שחיפשת?</p>
-            <h3 className="font-cormorant text-3xl font-light text-concrete">ניצור עבורך פריט מותאם אישית</h3>
-            <p className="font-assistant text-sm text-concrete/55">מידות, גימורים וחומרים לפי בחירתך. שיחת ייעוץ חינם.</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 mt-24">
+          <div className="border border-wire bg-pearl-warm px-8 md:px-14 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-right space-y-2" dir="rtl">
+              <p className="label-ys text-ink-subtle">Didn&apos;t find what you&apos;re looking for?</p>
+              <h3 className="font-cormorant text-2xl md:text-3xl font-light text-ink">
+                We&apos;ll build a custom piece for your space
+              </h3>
+              <p className="font-assistant text-sm text-ink-soft">
+                Free consultation. Your dimensions, your finish.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+              <NextLink href="/custom" className="btn-ys-solid">Custom Design</NextLink>
               <a
-                href="https://wa.me/972528448870?text=שלום, אני מחפש/ת פריט מותאם אישית"
+                href="https://wa.me/972528448870?text=Hello, I'm looking for a custom piece."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ys-solid px-8 py-3 text-sm"
+                className="btn-ys-outline"
               >
-                Custom Design ב-WhatsApp
+                WhatsApp
               </a>
-              <a href="/custom" className="btn-ys-outline px-8 py-3 text-sm">עמוד Custom Design</a>
             </div>
           </div>
         </div>
