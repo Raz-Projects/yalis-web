@@ -7,9 +7,10 @@ import { useState } from "react"
 import { useCart } from "@/lib/cart-context"
 
 const links = [
-  { href: "/products", label: "מוצרים" },
-  { href: "/#collections", label: "קולקציות" },
-  { href: "/#about", label: "אודות" },
+  { href: "/products", label: "קולקציה" },
+  { href: "/custom", label: "Custom Design" },
+  { href: "/about", label: "אודות" },
+  { href: "/architects", label: "אדריכלים" },
   { href: "/contact", label: "צור קשר" },
 ]
 

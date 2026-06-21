@@ -1,12 +1,66 @@
 import Image from "next/image"
 import Link from "next/link"
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
 import { FloatingWhatsApp } from "@/components/whatsapp-button"
+import { NewsletterForm } from "@/components/newsletter-form"
 import { products } from "@/lib/products"
 
-const featured = products.slice(0, 6)
+export const metadata: Metadata = {
+  title: "YALIS STUDIO — Architectural Steel Furniture | ריהוט נירוסטה יוקרתי",
+  description:
+    "Handcrafted architectural furniture in brushed stainless steel and solid wood. Designed and made in Israel. Custom pieces for residential, hospitality and commercial spaces.",
+  openGraph: {
+    title: "YALIS STUDIO — Architectural Steel Furniture",
+    description: "Handcrafted architectural furniture in brushed stainless steel and solid wood. Made in Israel.",
+    images: [{ url: "/brand-board.jpeg", width: 2752, height: 917 }],
+  },
+}
+
+const featured = products.filter(p => p.priceFrom >= 2000).slice(0, 6)
+
+const testimonials = [
+  {
+    quote: "YALIS הפכו את חלל הישיבות שלנו לחלל שאנשים רוצים לבלות בו. האיכות מורגשת בכל נגיעה.",
+    name: "מיכל כהן",
+    title: "מנהלת עיצוב, סטארטאפ בתל אביב",
+  },
+  {
+    quote: "כמעצבת פנים, אני מחפשת ספקים שמבינים גמרים. YALIS הם בין הבודדים שנותנים מוצר שגמרו תואם לדרישת הפרויקט.",
+    name: "דנה לוי",
+    title: "מעצבת פנים, תל אביב",
+  },
+  {
+    quote: "הקונסולה שהזמנתי עלתה בדיוק למפרט שנתתי. 10 שבועות מדויקים, אפס פשרות על האיכות.",
+    name: "אורי שפירא",
+    title: "לקוח פרטי, הרצליה פיתוח",
+  },
+]
+
+const brandValues = [
+  {
+    title: "Precision",
+    sub: "דיוק",
+    body: "כל חיתוך, כל ריתוך, כל גימור — נמדד. הסטייה המקסימלית שלנו היא אפס.",
+  },
+  {
+    title: "Craftsmanship",
+    sub: "מלאכת יד",
+    body: "כל פריט מיוצר ידנית על ידי אומן אחד, מהתחלה ועד הסוף. אין פס ייצור.",
+  },
+  {
+    title: "Timeless",
+    sub: "נצחי",
+    body: "עיצוב שלא מנסה להיות טרנדי. מינימליזם אדריכלי שיתאים לחלל עוד עשרים שנה.",
+  },
+  {
+    title: "Custom",
+    sub: "על פי מידה",
+    body: "אנחנו לא מייצרים מלאי. כל פריט מוזמן, מתוכנן, ומיוצר עבור הלקוח הספציפי.",
+  },
+]
 
 export default function HomePage() {
   return (
@@ -14,237 +68,346 @@ export default function HomePage() {
       <Navbar />
       <FloatingWhatsApp />
 
-      {/* ══════════════════════════════════════
-          HERO — full-screen brand board
-          ══════════════════════════════════════ */}
-      <section id="main-content" tabIndex={-1} className="relative min-h-screen flex items-center justify-center overflow-hidden focus:outline-none">
-        {/* Background */}
+      {/* ══════════════════════════════════════════
+          HERO
+      ══════════════════════════════════════════ */}
+      <section
+        id="main-content"
+        tabIndex={-1}
+        className="relative min-h-screen flex items-end pb-20 md:pb-32 overflow-hidden focus:outline-none"
+      >
         <Image
           src="/brand-board.jpeg"
-          alt="YALIS Studio"
+          alt="YALIS STUDIO — Architectural Steel Furniture"
           fill
           priority
           quality={90}
-          className="object-cover object-center"
+          className="object-cover object-center scale-[1.02]"
           sizes="100vw"
         />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-onyx/65" />
+        {/* Gradient overlay — dark at bottom for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-onyx via-onyx/50 to-onyx/10" />
 
-        {/* Brand content */}
-        <div className="relative z-10 flex flex-col items-center gap-6 px-6 text-center" dir="rtl">
-          {/* Black card: logo + studio + divider + tagline */}
-          <div className="bg-onyx/80 px-6 sm:px-10 py-6 sm:py-8 flex flex-col items-center gap-5 w-full max-w-xs sm:max-w-none sm:w-auto">
-            {/* Logo */}
-            <div className="w-52 md:w-64 lg:w-72 relative" style={{ aspectRatio: "1774 / 887" }}>
-              <Image
-                src="/logo-full.jpeg"
-                alt="YALIS"
-                fill
-                priority
-                quality={100}
-                className="object-contain invert mix-blend-screen"
-                sizes="288px"
-              />
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6" dir="rtl">
+          <div className="max-w-2xl space-y-6">
+            <p className="label-ys text-steel-light tracking-[0.4em]">YALIS STUDIO</p>
+            <h1 className="font-cormorant text-5xl md:text-7xl lg:text-8xl font-light text-offwhite leading-[1.05]">
+              ריהוט<br />
+              <em className="not-italic text-steel-light">אדריכלי</em><br />
+              מנירוסטה
+            </h1>
+            <p className="font-assistant text-base md:text-lg text-concrete/75 leading-relaxed max-w-lg">
+              עיצוב מינימליסטי. גמרים מדויקים. ייצור ישראלי בעבודת יד.
+              כל פריט מותאם אישית — לחלל, לממדים, לחזון שלך.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <Link href="/products" className="btn-ys-solid px-8 py-4 text-sm tracking-wide text-center">
+                Explore Collection
+              </Link>
+              <Link href="/custom" className="btn-ys-outline px-8 py-4 text-sm tracking-wide text-center">
+                Custom Design
+              </Link>
             </div>
-
-            {/* STUDIO subtitle */}
-            <p
-              className="tracking-[0.5em] text-concrete/50 text-[10px] md:text-xs font-light -mt-2"
-              style={{ fontFamily: "Assistant, sans-serif" }}
-            >
-              S T U D I O
-            </p>
-
-            {/* Divider */}
-            <div className="w-10 h-px bg-steel/50" />
-
-            {/* Tagline */}
-            <p className="label-ys text-steel-light/70 tracking-[0.2em] text-[10px] md:text-xs">
-              ריהוט תעשייתי יוקרתי · ייצור ישראלי · עבודת יד
-            </p>
           </div>
+        </div>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3 mt-2">
-            <Link href="/products" className="btn-ys-solid px-8 py-3 text-sm text-center">
-              לצפייה במוצרים
+        {/* Scroll cue */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
+          <div className="w-px h-16 bg-concrete/60 animate-[pulse_2s_ease-in-out_infinite]" />
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          BRAND VALUES STRIP
+      ══════════════════════════════════════════ */}
+      <section className="border-y border-white/8 bg-onyx-dark">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-x-reverse divide-white/8" dir="rtl">
+          {brandValues.map(v => (
+            <div key={v.title} className="px-6 py-8 md:py-10 space-y-1">
+              <p className="font-cormorant text-lg font-light text-concrete">{v.title}</p>
+              <p className="label-ys text-steel text-[10px]">{v.sub}</p>
+              <p className="font-assistant text-xs text-concrete/50 leading-relaxed pt-1 hidden md:block">{v.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          FEATURED COLLECTION
+      ══════════════════════════════════════════ */}
+      <section className="py-24 md:py-32 px-6 bg-onyx">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-end justify-between mb-14" dir="rtl">
+            <div className="space-y-3">
+              <p className="label-ys text-steel-light">THE COLLECTION</p>
+              <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete">
+                מוצרים נבחרים
+              </h2>
+            </div>
+            <Link href="/products" className="btn-ys-ghost text-sm hidden md:inline-flex items-center gap-2">
+              כל הקולקציה
+              <span aria-hidden>←</span>
             </Link>
-            <a
-              href="https://wa.me/972528448870"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ys-outline px-8 py-3 text-sm text-center"
-            >
-              פנו אלינו
-            </a>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featured.map((product, i) => (
+              <ProductCard key={product.slug} product={product} priority={i < 3} />
+            ))}
+          </div>
+
+          <div className="mt-12 text-center md:hidden">
+            <Link href="/products" className="btn-ys-outline px-8 py-3">כל הקולקציה</Link>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-          <div className="w-px h-12 bg-concrete/60 animate-pulse" />
-        </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          ABOUT
-          ══════════════════════════════════════ */}
-      <section id="about" className="py-28 md:py-36 px-6 bg-onyx">
-        <div className="max-w-4xl mx-auto text-center space-y-7">
-          <p className="label-ys text-steel-light">YALIS — ייצור ישראלי</p>
-          <h2 className="font-cormorant text-4xl md:text-6xl font-light text-concrete">
-            ריהוט שנבנה להישאר
-          </h2>
-          <div className="ys-divider" />
-          <p className="font-assistant text-base md:text-lg text-concrete/70 text-pretty leading-relaxed max-w-2xl mx-auto">
-            אנחנו מייצרים ריהוט מנירוסטה ועץ בעבודת יד, עם תשומת לב לכל פרט. כל מוצר מותאם אישית לפי הצרכים שלך — גודל, גימור, חומר. המחיר נקבע בשיחה ישירה, ואין פשרות על האיכות.
-          </p>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════
-          PANEL STRIP — 4 horizontal panels
-          ══════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════
+          PANEL STRIP
+      ══════════════════════════════════════════ */}
       <div className="grid grid-cols-2 sm:grid-cols-4">
         {[1, 2, 3, 4].map((n) => (
-          <div key={n} className="relative h-44 sm:h-64 md:h-80 overflow-hidden">
+          <div key={n} className="relative h-44 sm:h-64 md:h-96 overflow-hidden">
             <Image
               src={`/panel-${n}.jpeg`}
               alt=""
               fill
-              className="object-cover object-center"
+              className="object-cover object-center transition-transform duration-700 hover:scale-105"
               sizes="(max-width: 640px) 50vw, 25vw"
             />
           </div>
         ))}
       </div>
 
-      {/* ══════════════════════════════════════
-          COLLECTIONS
-          ══════════════════════════════════════ */}
-      <section id="collections" className="py-20 md:py-24 px-6 bg-onyx">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-6">
-            <Link href="/products?collection=5mm" className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/5">
-              <Image src="/products/p20.jpeg" alt="קולקציית 5mm" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 inset-x-0 p-8">
-                <p className="label-ys text-steel-light mb-2">קולקציה</p>
-                <h3 className="font-cormorant text-3xl font-light text-concrete">5mm Steel</h3>
-                <p className="font-assistant text-sm text-concrete/60 mt-1">שולחנות, כיסאות, קונסולות</p>
-                <p className="steel-underline mt-4 text-sm text-concrete/70 group-hover:text-concrete transition-colors">לצפייה בקולקציה</p>
-              </div>
-            </Link>
-            <Link href="/products?collection=3mm" className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/5">
-              <Image src="/products/p31.jpeg" alt="קולקציית 3mm" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 inset-x-0 p-8">
-                <p className="label-ys text-steel-light mb-2">קולקציה</p>
-                <h3 className="font-cormorant text-3xl font-light text-concrete">3mm Steel</h3>
-                <p className="font-assistant text-sm text-concrete/60 mt-1">מדפים, מנורות, מסגרות</p>
-                <p className="steel-underline mt-4 text-sm text-concrete/70 group-hover:text-concrete transition-colors">לצפייה בקולקציה</p>
-              </div>
+      {/* ══════════════════════════════════════════
+          ABOUT — BRAND STORY
+      ══════════════════════════════════════════ */}
+      <section id="about" className="py-24 md:py-36 px-6 bg-onyx">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center" dir="rtl">
+          <div className="space-y-7">
+            <p className="label-ys text-steel-light">THE STUDIO</p>
+            <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete leading-snug">
+              ריהוט שנבנה<br />להישאר
+            </h2>
+            <div className="ys-divider" />
+            <p className="font-assistant text-base md:text-lg text-concrete/65 leading-relaxed">
+              YALIS STUDIO נוסד מתוך אמונה שריהוט איכותי לא צריך להגיע מאיטליה.
+              אנחנו מייצרים ריהוט אדריכלי מנירוסטה ועץ מלא בעומר, ישראל —
+              עם אותה רמת גמר ודיוק שמצפים ממנה במותגי יוקרה בינלאומיים.
+            </p>
+            <p className="font-assistant text-base text-concrete/60 leading-relaxed">
+              כל פריט מוזמן. כל פריט מותאם. כל פריט נושא את החתימה של האומן שיצר אותו.
+            </p>
+            <Link href="/about" className="btn-ys-outline inline-flex px-8 py-3 text-sm">
+              הסיפור שלנו
             </Link>
           </div>
-        </div>
-      </section>
 
-      {/* ══════════════════════════════════════
-          FEATURED PRODUCTS
-          ══════════════════════════════════════ */}
-      <section className="py-24 md:py-28 px-6 bg-onyx">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-end justify-between mb-14">
-            <div>
-              <p className="label-ys text-steel-light mb-3">מוצרים נבחרים</p>
-              <h2 className="font-cormorant text-4xl font-light text-concrete">מהקולקציה</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-white/5">
+              <Image src="/products/p05.jpeg" alt="" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
             </div>
-            <Link href="/products" className="btn-ys-ghost text-sm hidden md:flex">כל המוצרים ←</Link>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featured.map((product, i) => (
-              <ProductCard key={product.slug} product={product} priority={i < 3} />
-            ))}
-          </div>
-          <div className="mt-12 text-center md:hidden">
-            <Link href="/products" className="btn-ys-outline px-8 py-3">כל המוצרים</Link>
+            <div className="space-y-4 pt-8">
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-white/5">
+                <Image src="/products/p12.jpeg" alt="" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+              </div>
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-white/5">
+                <Image src="/products/p18.jpeg" alt="" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
+      {/* ══════════════════════════════════════════
           CUSTOM MADE
-          ══════════════════════════════════════ */}
-      <section className="py-20 md:py-28 px-6 bg-onyx border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-
-            {/* Text side */}
-            <div className="space-y-6" dir="rtl">
-              <p className="label-ys text-steel-light">CUSTOM MADE</p>
-              <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete leading-snug">
-                כל מוצר —<br />לפי המידות שלך
-              </h2>
-              <div className="ys-divider" />
-              <p className="font-assistant text-base text-concrete/65 leading-relaxed">
-                אנחנו לא מוכרים מדף. כל פריט מיוצר מאפס לפי הגדרות המדויקות שלך — גודל, גימור,
-                צורה וחומר. נירוסטה מוברשת, שחורה מט, ציפוי אבקה, שילוב עם עץ — הכל אפשרי.
-              </p>
-              <ul className="space-y-3 font-assistant text-sm text-concrete/60" dir="rtl">
-                {[
-                  "מידות מותאמות לחלל שלך",
-                  "בחירת גימור וצבע",
-                  "שילוב חומרים — נירוסטה + עץ",
-                  "ייצור מקומי בעומר, ישראל",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <span className="w-1 h-1 rounded-full bg-steel flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+      ══════════════════════════════════════════ */}
+      <section className="py-20 md:py-28 px-6 bg-onyx-dark border-y border-white/8">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center" dir="rtl">
+          <div className="space-y-6">
+            <p className="label-ys text-steel-light">CUSTOM MADE</p>
+            <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete leading-snug">
+              כל מוצר —<br />לפי המידות שלך
+            </h2>
+            <div className="ys-divider" />
+            <p className="font-assistant text-base text-concrete/65 leading-relaxed">
+              אין קטלוג שמגביל אותך. תביא מידות, שרטוט, תמונה, או רעיון — ואנחנו נתרגם
+              אותו לפריט שיתאים בדיוק לחלל ולאסתטיקה שלך.
+            </p>
+            <ul className="space-y-3 font-assistant text-sm text-concrete/60" dir="rtl">
+              {[
+                "גדלים ומידות על פי דרישה",
+                "גמרים: מוברש, מט, בציפוי אבקה",
+                "שילוב חומרים: נירוסטה + עץ מלא",
+                "ייצור מקומי, זמן מסירה 4–10 שבועות",
+              ].map(item => (
+                <li key={item} className="flex items-center gap-3">
+                  <span className="w-1 h-1 rounded-full bg-steel flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link href="/custom" className="btn-ys-solid px-8 py-3.5 text-sm text-center">
+                התחל פרויקט Custom
+              </Link>
               <a
                 href="https://wa.me/972528448870?text=שלום, אני מעוניין/ת בריהוט מותאם אישית"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ys-solid inline-flex items-center gap-2 px-8 py-3.5 text-sm"
+                className="btn-ys-outline px-8 py-3.5 text-sm text-center"
               >
-                <WAIcon />
                 שיחת ייעוץ ב-WhatsApp
               </a>
             </div>
+          </div>
 
-            {/* Image grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {["/products/p05.jpeg", "/products/p12.jpeg", "/products/p18.jpeg", "/products/p24.jpeg"].map((src, i) => (
-                <div key={i} className="relative aspect-square overflow-hidden rounded-xl bg-white/5">
-                  <Image src={src} alt="" fill className="object-cover img-zoom" sizes="(max-width: 768px) 50vw, 25vw" />
-                </div>
-              ))}
-            </div>
-
+          <div className="grid grid-cols-2 gap-3">
+            {["/products/p05.jpeg", "/products/p24.jpeg", "/products/p09.jpeg", "/products/p31.jpeg"].map((src, i) => (
+              <div key={i} className="relative aspect-square overflow-hidden rounded-xl bg-white/5">
+                <Image src={src} alt="" fill className="object-cover img-zoom" sizes="(max-width: 768px) 50vw, 25vw" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          CTA
-          ══════════════════════════════════════ */}
-      <section id="contact" className="py-28 md:py-36 px-6 bg-onyx border-t border-white/5">
-        <div className="max-w-3xl mx-auto text-center space-y-7">
-          <p className="label-ys text-steel-light">התאמה אישית</p>
-          <h2 className="font-cormorant text-4xl md:text-6xl font-light text-concrete">
-            יש לכם רעיון?<br />בואו נדבר.
+      {/* ══════════════════════════════════════════
+          COLLECTIONS GRID
+      ══════════════════════════════════════════ */}
+      <section id="collections" className="py-20 md:py-28 px-6 bg-onyx">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14 space-y-3" dir="rtl">
+            <p className="label-ys text-steel-light">COLLECTIONS</p>
+            <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete">הקולקציות</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Link href="/products?collection=5mm" className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-white/5">
+              <Image src="/products/p20.jpeg" alt="קולקציית 5mm Steel" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-8" dir="rtl">
+                <p className="label-ys text-steel-light mb-2">Heavy Gauge</p>
+                <h3 className="font-cormorant text-3xl font-light text-concrete">5mm Steel</h3>
+                <p className="font-assistant text-sm text-concrete/55 mt-1">שולחנות, כיסאות, קונסולות, ספסלים</p>
+                <p className="steel-underline mt-5 text-sm text-concrete/65 group-hover:text-concrete transition-colors">
+                  גלה את הקולקציה ←
+                </p>
+              </div>
+            </Link>
+            <Link href="/products?collection=3mm" className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-white/5">
+              <Image src="/products/p31.jpeg" alt="קולקציית 3mm Steel" fill className="object-cover img-zoom" sizes="(max-width: 768px) 100vw, 50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-8" dir="rtl">
+                <p className="label-ys text-steel-light mb-2">Light Gauge</p>
+                <h3 className="font-cormorant text-3xl font-light text-concrete">3mm Steel</h3>
+                <p className="font-assistant text-sm text-concrete/55 mt-1">מדפים, תאורה, מסגרות, פרטים</p>
+                <p className="steel-underline mt-5 text-sm text-concrete/65 group-hover:text-concrete transition-colors">
+                  גלה את הקולקציה ←
+                </p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          TESTIMONIALS
+      ══════════════════════════════════════════ */}
+      <section className="py-20 md:py-28 px-6 bg-onyx-dark border-y border-white/8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14 space-y-3" dir="rtl">
+            <p className="label-ys text-steel-light">CLIENT STORIES</p>
+            <h2 className="font-cormorant text-4xl font-light text-concrete">מה אומרים הלקוחות</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8" dir="rtl">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-white/3 border border-white/8 rounded-2xl p-8 space-y-5 hover:border-steel/30 transition-colors">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, s) => (
+                    <svg key={s} viewBox="0 0 12 12" width="12" height="12" fill="currentColor" className="text-steel">
+                      <path d="M6 1l1.545 3.09L11 4.635l-2.5 2.43.59 3.435L6 8.91l-3.09 1.59L3.5 7.065 1 4.635l3.455-.545z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="font-assistant text-base text-concrete/70 leading-relaxed">"{t.quote}"</p>
+                <div className="border-t border-white/8 pt-4">
+                  <p className="font-assistant text-sm font-medium text-concrete">{t.name}</p>
+                  <p className="font-assistant text-xs text-steel">{t.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          ARCHITECTS STRIP
+      ══════════════════════════════════════════ */}
+      <section className="py-16 px-6 bg-onyx">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10 rounded-2xl px-8 py-8 md:py-10" dir="rtl">
+            <div className="space-y-2 text-center md:text-right">
+              <p className="label-ys text-steel-light">FOR PROFESSIONALS</p>
+              <h3 className="font-cormorant text-2xl md:text-3xl font-light text-concrete">
+                אדריכלים ומעצבים
+              </h3>
+              <p className="font-assistant text-sm text-concrete/55">
+                מפרטים טכניים, קבצי DWG ושיתופי פעולה לפרויקטים גדולים
+              </p>
+            </div>
+            <Link href="/architects" className="btn-ys-outline whitespace-nowrap px-8 py-3 text-sm flex-shrink-0">
+              לעמוד המקצועי ←
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          NEWSLETTER
+      ══════════════════════════════════════════ */}
+      <section className="py-20 px-6 bg-onyx-dark border-t border-white/8">
+        <div className="max-w-lg mx-auto text-center space-y-6" dir="rtl">
+          <p className="label-ys text-steel-light">STUDIO UPDATES</p>
+          <h2 className="font-cormorant text-3xl md:text-4xl font-light text-concrete">
+            הצטרפו לרשימת הסטודיו
           </h2>
-          <p className="font-assistant text-base md:text-lg text-concrete/70 text-pretty max-w-xl mx-auto">
-            כל מוצר יכול להיות מותאם לגודל, לחומר ולגימור שאתם רוצים. פנו אלינו ישירות ונבנה ביחד.
+          <p className="font-assistant text-sm text-concrete/55">
+            עדכונים על קולקציות חדשות, פרויקטים, ומבצעים — ישירות לתיבת הדואר שלך.
           </p>
-          <a href="https://wa.me/972528448870" target="_blank" rel="noopener noreferrer"
-            className="btn-ys-solid inline-flex items-center gap-2 px-10 py-4 text-base">
-            <WAIcon />
-            שלחו הודעה ב-WhatsApp
-          </a>
+          <NewsletterForm />
+          <p className="font-assistant text-xs text-concrete/30">
+            אין ספאם. ניתן לבטל בכל עת.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          CTA
+      ══════════════════════════════════════════ */}
+      <section id="contact" className="py-28 md:py-40 px-6 bg-onyx border-t border-white/8">
+        <div className="max-w-3xl mx-auto text-center space-y-7" dir="rtl">
+          <p className="label-ys text-steel-light">LET'S BUILD</p>
+          <h2 className="font-cormorant text-5xl md:text-7xl font-light text-concrete leading-tight">
+            יש לכם<br />
+            <em className="not-italic text-steel-light">רעיון?</em>
+          </h2>
+          <p className="font-assistant text-base md:text-lg text-concrete/60 max-w-lg mx-auto leading-relaxed">
+            פנו אלינו לייעוץ חינם. נבין מה אתם צריכים, נציע פתרון, ונתחיל לבנות.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://wa.me/972528448870?text=שלום, אני מעוניין/ת לדבר על פרויקט ריהוט"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ys-solid inline-flex items-center gap-2 px-10 py-4 text-base"
+            >
+              <WAIcon />
+              שלחו הודעה ב-WhatsApp
+            </a>
+            <Link href="/contact" className="btn-ys-outline px-10 py-4 text-base">
+              כל דרכי יצירת קשר
+            </Link>
+          </div>
         </div>
       </section>
 

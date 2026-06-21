@@ -29,7 +29,9 @@ export function Footer() {
               { href: "/products", label: "כל המוצרים" },
               { href: "/products?collection=5mm", label: "קולקציית 5mm" },
               { href: "/products?collection=3mm", label: "קולקציית 3mm" },
-              { href: "/#about", label: "אודות" },
+              { href: "/custom", label: "Custom Design" },
+              { href: "/about", label: "אודות" },
+              { href: "/architects", label: "אדריכלים ומעצבים" },
               { href: "/contact", label: "צור קשר" },
             ].map(l => (
               <li key={l.href}>

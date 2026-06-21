@@ -1,5 +1,7 @@
-export type ProductCategory = "chairs" | "tables" | "side-tables" | "shelving" | "kitchen" | "lighting"
+export type ProductCategory = "chairs" | "tables" | "side-tables" | "shelving" | "kitchen" | "lighting" | "consoles" | "benches" | "storage"
 export type Collection = "5mm" | "3mm"
+export type FinishType = "brushed" | "matte-black" | "powder-coat" | "mirror" | "natural-wood" | "dark-wood"
+export type RoomType = "living" | "dining" | "bedroom" | "office" | "kitchen" | "outdoor" | "hospitality"
 
 export type Product = {
   slug: string
@@ -7,19 +9,42 @@ export type Product = {
   nameEn: string
   category: ProductCategory
   categoryHe: string
+  categoryEn?: string
   collection: Collection
   taglineHe: string
+  taglineEn?: string
   descriptionHe: string
+  descriptionEn?: string
   material: string
+  materialEn?: string
+  finish?: FinishType[]
   dimensions: {
     width?: number
     depth?: number
     height?: number
+    weight?: number
     note?: string
   }
+  roomTypes?: RoomType[]
+  careInstructions?: string
+  deliveryWeeks?: { min: number; max: number }
   images: string[]
   priceFrom: number
   customizable: boolean
+  featured?: boolean
+  isNew?: boolean
+}
+
+export function getDefaultDelivery(): { min: number; max: number } {
+  return { min: 4, max: 10 }
+}
+
+export function getDefaultCare(): string {
+  return "נגב עם מטלית מיקרופייבר לחה. הימנע מחומרי ניקוי שוחקים. לגמרים מוברשים — נגב בכיוון הגמר."
+}
+
+export function getDefaultFinish(): FinishType[] {
+  return ["brushed", "matte-black"]
 }
 
 export const products: Product[] = [
