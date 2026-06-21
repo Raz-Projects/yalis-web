@@ -10,7 +10,7 @@ const links = [
   { href: "/products", label: "מוצרים" },
   { href: "/#collections", label: "קולקציות" },
   { href: "/#about", label: "אודות" },
-  { href: "/#contact", label: "פנו אלינו" },
+  { href: "/contact", label: "צור קשר" },
 ]
 
 export function Navbar() {

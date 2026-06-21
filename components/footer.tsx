@@ -30,6 +30,7 @@ export function Footer() {
               { href: "/products?collection=5mm", label: "קולקציית 5mm" },
               { href: "/products?collection=3mm", label: "קולקציית 3mm" },
               { href: "/#about", label: "אודות" },
+              { href: "/contact", label: "צור קשר" },
             ].map(l => (
               <li key={l.href}>
                 <Link
