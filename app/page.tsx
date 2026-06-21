@@ -174,6 +174,61 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════
+          CUSTOM MADE
+          ══════════════════════════════════════ */}
+      <section className="py-20 md:py-28 px-6 bg-onyx border-t border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+
+            {/* Text side */}
+            <div className="space-y-6" dir="rtl">
+              <p className="label-ys text-steel-light">CUSTOM MADE</p>
+              <h2 className="font-cormorant text-4xl md:text-5xl font-light text-concrete leading-snug">
+                כל מוצר —<br />לפי המידות שלך
+              </h2>
+              <div className="ys-divider" />
+              <p className="font-assistant text-base text-concrete/65 leading-relaxed">
+                אנחנו לא מוכרים מדף. כל פריט מיוצר מאפס לפי הגדרות המדויקות שלך — גודל, גימור,
+                צורה וחומר. נירוסטה מוברשת, שחורה מט, ציפוי אבקה, שילוב עם עץ — הכל אפשרי.
+              </p>
+              <ul className="space-y-3 font-assistant text-sm text-concrete/60" dir="rtl">
+                {[
+                  "מידות מותאמות לחלל שלך",
+                  "בחירת גימור וצבע",
+                  "שילוב חומרים — נירוסטה + עץ",
+                  "ייצור מקומי בעומר, ישראל",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="w-1 h-1 rounded-full bg-steel flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="https://wa.me/972528448870?text=שלום, אני מעוניין/ת בריהוט מותאם אישית"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ys-solid inline-flex items-center gap-2 px-8 py-3.5 text-sm"
+              >
+                <WAIcon />
+                שיחת ייעוץ ב-WhatsApp
+              </a>
+            </div>
+
+            {/* Image grid */}
+            <div className="grid grid-cols-2 gap-3">
+              {["/products/p05.jpeg", "/products/p12.jpeg", "/products/p18.jpeg", "/products/p24.jpeg"].map((src, i) => (
+                <div key={i} className="relative aspect-square overflow-hidden rounded-xl bg-white/5">
+                  <Image src={src} alt="" fill className="object-cover img-zoom" sizes="(max-width: 768px) 50vw, 25vw" />
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
           CTA
           ══════════════════════════════════════ */}
       <section id="contact" className="py-28 md:py-36 px-6 bg-onyx border-t border-white/5">
